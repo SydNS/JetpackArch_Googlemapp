@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragDests.WalkThrough">
+    android:orientation="vertical"
+    tools:context=".FragDests.WalkThrough"
+    android:background="#0F1749">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
