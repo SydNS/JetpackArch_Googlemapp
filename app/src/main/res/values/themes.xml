@@ -14,8 +14,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ThemeOverlay.DanMech.FullscreenContainer" parent="">
+    <style name="ThemeOverlay.DanMech.FullscreenContainer" parent="Theme.AppCompat.NoActionBar">
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
+
+        <item name="android:windowBackground">
+            @drawable/splashscreenbg
+        </item>
     </style>
+
+    <color name="splashcolor">#B503A9F4</color>
 </resources>
