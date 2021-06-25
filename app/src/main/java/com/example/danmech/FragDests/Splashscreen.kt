@@ -1,4 +1,4 @@
-package com.example.danmech
+package com.example.danmech.FragDests
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,12 +9,13 @@ import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.danmech.R
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class splashscreen : Fragment() {
+class Splashscreen : Fragment() {
     private val hideHandler = Handler()
 
     @Suppress("InlinedApi")
@@ -70,9 +71,6 @@ class splashscreen : Fragment() {
 
         visible = true
 
-        dummyButton = view.findViewById(R.id.dummy_button)
-        fullscreenContent = view.findViewById(R.id.fullscreen_content)
-        fullscreenContentControls = view.findViewById(R.id.fullscreen_content_controls)
         // Set up the user interaction to manually show or hide the system UI.
         fullscreenContent?.setOnClickListener { toggle() }
 
