@@ -3,10 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/danmech_nav_graph"
-    app:startDestination="@id/splashscreen">
+    app:startDestination="@id/walkThrough">
     <fragment
         android:id="@+id/splashscreen"
-        android:name="com.example.danmech.splashscreen"
+        android:name="com.example.danmech.FragDests.Splashscreen"
         android:label="fragment_splashscreen"
         tools:layout="@layout/fragment_splashscreen" />
+    <fragment
+        android:id="@+id/walkThrough"
+        android:name="com.example.danmech.WalkThrough"
+        android:label="fragment_walk_through"
+        tools:layout="@layout/fragment_walk_through" />
 </navigation>
