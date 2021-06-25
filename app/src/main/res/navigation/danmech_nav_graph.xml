@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_splashscreen" />
     <fragment
         android:id="@+id/walkThrough"
-        android:name="com.example.danmech.WalkThrough"
+        android:name="com.example.danmech.FragDests.WalkThrough"
         android:label="fragment_walk_through"
         tools:layout="@layout/fragment_walk_through" />
 </navigation>
