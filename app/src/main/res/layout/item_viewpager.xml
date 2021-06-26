@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <ImageView
-        android:id="@+id/ivSliderImage"
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/ivSliderImageCard"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        >
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:id="@+id/ivSliderImage"/>
+    </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/ivSliderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivSliderImageCard"/>
+
+    <TextView
+        android:id="@+id/ivSliderSlogan"
+        android:layout_marginHorizontal="20dp"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/slogan"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivSliderTitle"
+        android:gravity="center_horizontal" />
+
+</RelativeLayout>
