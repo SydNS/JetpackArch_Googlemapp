@@ -24,7 +24,10 @@
             android:layout_height="wrap_content"
             android:text="previous"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/wtbtnbg"
+            android:textColor="#0F1749"
+            />
 
         <Button
             android:id="@+id/next"
@@ -32,7 +35,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="next"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:background="@drawable/wtbtnbg"
+            android:textColor="#0F1749"
+            />
+
+        <Button
+            android:background="@drawable/wtbtnbg"
+            android:textColor="#0F1749"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="15dp"
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome" />
     </RelativeLayout>
 
 </RelativeLayout>
