@@ -4,11 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.danmech.R
 
 class ViewPagerAdapter(
-    private val imagesList: List<Int>
+    private val imagesList: List<Int>,
+    private val titlesList: List<String>,
+    private val slogansList: List<String>
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerHolder>() {
 
 
@@ -20,7 +23,9 @@ class ViewPagerAdapter(
 
     override fun onBindViewHolder(holder: ViewPagerHolder, position: Int) {
         val image = imagesList[position]
-        holder.bind(image)
+        val title = titlesList[position]
+        val slogan = slogansList[position]
+        holder.bind(image,title,slogan)
     }
 
     override fun getItemCount(): Int {
@@ -31,9 +36,13 @@ class ViewPagerAdapter(
     class ViewPagerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val ivSliderImage = itemView.findViewById<ImageView>(R.id.ivSliderImage)
+        private val ivSliderTitle = itemView.findViewById<TextView>(R.id.ivSliderTitle)
+        private val ivSliderSlogan = itemView.findViewById<TextView>(R.id.ivSliderSlogan)
 
-        fun bind(image: Int) {
+        fun bind(image: Int,title:String,slogan:String) {
             ivSliderImage.setImageResource(image)
+            ivSliderSlogan.text=slogan
+            ivSliderTitle.text=title
         }
     }
 }
