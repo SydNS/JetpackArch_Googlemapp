@@ -16,6 +16,7 @@ class WalkThrough : Fragment() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var prev: Button
     private lateinit var next: Button
+    private lateinit var welcome: Button
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,7 +41,7 @@ class WalkThrough : Fragment() {
         val sloganList = listOf(
 
                 "Mechanics probably won’t need the ones that show the basic stuff like changing oil.",
-                "Mechanics probably won’t need the ones that show the basic stuff like changing oil.",
+                "Bringing the best mechanics to your convenience whenever you have a motor breackage.",
                 "Mechanics probably won’t need the ones that show the basic stuff like changing oil."
         )
         val titlesList = listOf(
@@ -56,19 +57,53 @@ class WalkThrough : Fragment() {
         viewPager2.adapter = adapter
         prev = view.findViewById(R.id.prev)
         next = view.findViewById(R.id.next)
+        welcome= view.findViewById(R.id.skip)
 
-        managingViewPager(prev, next)
+
+        managingViewPager(prev, next,welcome)
+
 
         return view
     }
 
-    private fun managingViewPager(prev: Button, next: Button) {
+    private fun managingViewPager(prev: Button, next: Button,welcome:Button) {
         prev.setOnClickListener {
-            viewPager2.setCurrentItem(viewPager2.currentItem - 1)
+            viewPager2.currentItem = viewPager2.currentItem - 1
         }
         next.setOnClickListener {
-            viewPager2.setCurrentItem(viewPager2.currentItem + 1)
+            viewPager2.currentItem = viewPager2.currentItem + 1
         }
+
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> {
+                        prev.visibility=View.INVISIBLE
+                        next.visibility=View.VISIBLE
+                        welcome.visibility=View.INVISIBLE
+
+                    }
+                    1 -> {
+                        prev.visibility=View.VISIBLE
+                        next.visibility=View.VISIBLE
+                        welcome.visibility=View.INVISIBLE
+
+                    }
+                    2 -> {
+                        prev.visibility=View.INVISIBLE
+                        next.visibility=View.INVISIBLE
+                        welcome.visibility=View.VISIBLE
+                    }
+                }
+
+            }
+//override method(s) what you need it
+        })
+
+
+
+
     }
 
 
