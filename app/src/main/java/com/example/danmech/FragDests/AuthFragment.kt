@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.viewpager.widget.ViewPager
 import com.example.danmech.R
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,13 @@ class AuthFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var tabs:TabLayout
+    lateinit var appbarauth:AppBarLayout
+    lateinit var vp:ViewPager
+    lateinit var toolbar:androidx.appcompat.widget.Toolbar
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,9 +45,17 @@ class AuthFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
+        val v: View=inflater.inflate(R.layout.fragment_auth, container, false)
+
+        appbarauth=v.findViewById<AppBarLayout>(R.id.appbarauth)
+        toolbar=v.findViewById<Toolbar>(R.id.toolbar)
+        tabs=v.findViewById<TabLayout>(R.id.tabs)
+        vp=v.findViewById<ViewPager>(R.id.vpauth)
+
+
+        return v }
 
     companion object {
         /**
