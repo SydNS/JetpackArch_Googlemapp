@@ -13,5 +13,14 @@
         android:id="@+id/walkThrough"
         android:name="com.example.danmech.FragDests.WalkThrough"
         android:label="fragment_walk_through"
-        tools:layout="@layout/fragment_walk_through" />
+        tools:layout="@layout/fragment_walk_through" >
+        <action
+            android:id="@+id/action_walkThrough_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.danmech.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" />
 </navigation>
