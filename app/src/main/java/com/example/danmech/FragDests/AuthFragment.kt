@@ -65,6 +65,8 @@ class AuthFragment : Fragment() {
 
 //        adapter
         tablayoutAdapter=TablayoutAdapter(ctx,parentFragmentManager)
+        vp.adapter=tablayoutAdapter
+
 
 
 
