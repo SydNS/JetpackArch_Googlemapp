@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="normal"
+                android:textColor="#23203f"
+                android:layout_marginTop="47dp"
+                android:layout_gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="20sp"
+                android:text="Sign In"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:letterSpacing="0.0265"
+                android:textColor="#6e6e73"
+                android:layout_gravity="center"
+                android:text="Login to continue your account"
+                android:textSize="17sp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="73dp"
+                android:layout_marginRight="29dp"
+                android:layout_marginLeft="29dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/mechan"
+                    android:layout_gravity="center"/>
+
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:layout_marginTop="28dp"
+                        android:textSize="25sp"
+                        android:fontFamily="sans-serif-light"
+                        android:textStyle="normal"
+                        android:textColor="#23203f"
+                        android:paddingRight="20dp"
+                        />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="18dp"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_marginTop="13.3dp"
+                    android:hint="Password"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:paddingRight="20dp"
+                    android:drawableRight="@drawable/view_password"
+                    android:inputType="textPassword"
+                    android:textSize="25sp"
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="normal"
+                    android:textColor="#9391a4"
+
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/design_default_color_background"
+                    android:layout_marginTop="18dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_marginTop="38dp"
+                    android:background="@drawable/button_gradient"
+                    android:text="Login"
+                    android:gravity="center"
+                    android:lineSpacingExtra="34sp"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:paddingTop="10.5dp"
+                    android:paddingBottom="10.5dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="30.5dp"
+                        android:layout_marginTop="20.8dp"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-light"
+                        android:textStyle="normal"
+                        android:textColor="#9391a4"
+                        android:lineSpacingExtra="26sp"
+                        android:text="@string/already_have_an_account"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="30.5dp"
+                        android:layout_marginTop="20.8dp"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textStyle="normal"
+                        android:textColor="#000000"
+                        android:lineSpacingExtra="26sp"
+                        android:text="Register"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
