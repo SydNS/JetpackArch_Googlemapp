@@ -1,7 +1,10 @@
 <resources>
 
-    <style name="Widget.Theme.DanMech.ButtonBar.Fullscreen" parent="">
+    <style name="Widget.Theme.DanMech.ButtonBar.Fullscreen" parent="Theme.AppCompat">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+    <style name="loginstyle" parent="LoginThem"/>
+    <style name="loginstylemain" parent="Theme.MaterialComponents"/>
 </resources>

@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ThemeOverlay.DanMech.FullscreenContainer" parent="">
+    <style name="ThemeOverlay.DanMech.FullscreenContainer" parent="Theme.AppCompat">
         <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
         <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
