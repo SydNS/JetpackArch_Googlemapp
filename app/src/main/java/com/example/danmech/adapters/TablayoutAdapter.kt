@@ -30,4 +30,19 @@ class TablayoutAdapter(context: Context, fm: FragmentManager?, totalTabs: Int) :
         return totalTabs
     }
 
+    override fun getPageTitle(position: Int): CharSequence {
+        return when (position) {
+            0 -> {
+                "Login"
+            }
+            1 -> {
+                "SignUp"
+            }
+
+            else -> "Login"
+        }
+    }
+
+
+
 }
