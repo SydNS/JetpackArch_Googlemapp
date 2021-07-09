@@ -14,6 +14,7 @@ class Login : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.theme?.applyStyle(R.style.loginstylemain,true)
         val v : View=inflater.inflate(R.layout.login,container,false)
         return v
     }
