@@ -7,10 +7,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.danmech.FragDests.Login
 import com.example.danmech.FragDests.SignUp
 
-class TablayoutAdapter(context: Context, fm: FragmentManager?, totalTabs: Int) :
+class TablayoutAdapter(context: Context, fm: FragmentManager?) :
     FragmentPagerAdapter(fm!!) {
     private val myContext: Context = context
-    var totalTabs: Int = totalTabs
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
@@ -27,7 +26,7 @@ class TablayoutAdapter(context: Context, fm: FragmentManager?, totalTabs: Int) :
 
     // this counts total number of tabs
     override fun getCount(): Int {
-        return totalTabs
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence {
