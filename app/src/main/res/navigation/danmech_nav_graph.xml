@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.danmech.AuthFragment"
+        android:name="com.example.danmech.FragDests.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" />
 </navigation>
