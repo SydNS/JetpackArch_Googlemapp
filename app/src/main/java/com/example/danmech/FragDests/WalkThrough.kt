@@ -1,11 +1,14 @@
 package com.example.danmech.FragDests
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.danmech.R
 import com.example.danmech.adapters.ViewPagerAdapter
@@ -101,6 +104,13 @@ class WalkThrough : Fragment() {
 //override method(s) what you need it
         })
 
+        welcome.setOnClickListener {
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_walkThrough_to_authFragment)
+
+
+
+        }
 
 
 
