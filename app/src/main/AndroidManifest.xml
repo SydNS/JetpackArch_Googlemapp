@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DanMech">
-        <activity android:name=".Activitys.MainActivity" android:theme="@style/ThemeOverlay.DanMech.FullscreenContainer">
+
+        <activity
+            android:name=".Activitys.MainActivity"
+            android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
