@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,7 +28,7 @@
                 android:layout_gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="20sp"
-                android:text="Sign In"
+                android:text="@string/sign_in"
                 />
 
             <TextView
@@ -37,7 +38,7 @@
                 android:letterSpacing="0.0265"
                 android:textColor="#6e6e73"
                 android:layout_gravity="center"
-                android:text="Login to continue your account"
+                android:text="@string/login_to_continue_your_account"
                 android:textSize="17sp"/>
 
 
@@ -53,21 +54,25 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/mechan"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/this_is_app_logo" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:layout_marginTop="28dp"
-                    android:textSize="25sp"
-                    android:fontFamily="sans-serif-light"
-                    android:textStyle="normal"
-                    android:textColor="#23203f"
-                    android:hint="Userame"
-                    android:drawableRight="@drawable/ic_baseline_person_24"
-                    android:paddingRight="20dp"
-                    />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:layout_marginTop="28dp"
+                        android:textSize="25sp"
+                        android:fontFamily="sans-serif-light"
+                        android:textStyle="normal"
+                        android:textColor="#23203f"
+                        android:paddingRight="20dp"
+                        android:inputType="text"
+                        android:autofillHints="Username"
+                        tools:ignore="LabelFor,RtlSymmetry"
+                        android:paddingEnd="20dp" />
+
 
                 <View
                     android:layout_width="match_parent"
@@ -76,12 +81,13 @@
                     android:layout_marginTop="18dp"
                     />
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
                     android:layout_marginTop="13.3dp"
-                    android:hint="Password"
+                    android:hint="@string/password"
+                    android:textColorHint="@android:color/darker_gray"
                     android:paddingRight="20dp"
                     android:drawableRight="@drawable/view_password"
                     android:inputType="textPassword"
@@ -90,7 +96,10 @@
                     android:textStyle="normal"
                     android:textColor="#9391a4"
 
-                    />
+                    android:autofillHints="Password"
+                    android:paddingEnd="20dp"
+                    tools:ignore="RtlSymmetry"
+                    android:drawableEnd="@drawable/view_password" />
 
                 <View
                     android:layout_width="match_parent"
@@ -107,7 +116,7 @@
                     android:layout_marginRight="33dp"
                     android:layout_marginTop="38dp"
                     android:background="@drawable/button_gradient"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:gravity="center"
                     android:lineSpacingExtra="34sp"
                     android:textColor="#ffffff"
@@ -146,7 +155,8 @@
                         android:textStyle="normal"
                         android:textColor="#000000"
                         android:lineSpacingExtra="26sp"
-                        android:text="Register"/>
+                        android:text="@string/register"
+                        android:layout_marginStart="5dp" />
 
                 </LinearLayout>
 
