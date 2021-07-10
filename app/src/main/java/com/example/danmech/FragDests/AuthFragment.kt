@@ -1,6 +1,7 @@
 package com.example.danmech.FragDests
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -62,6 +63,8 @@ class AuthFragment : Fragment() {
         toolbar=v.findViewById<Toolbar>(R.id.toolbar)
         tabs=v.findViewById<TabLayout>(R.id.tabs)
         vp=v.findViewById<ViewPager>(R.id.vpauth)
+
+        toolbar.title= R.string.app_name.toString()
 
 //        adapter
         tablayoutAdapter=TablayoutAdapter(ctx,parentFragmentManager)
