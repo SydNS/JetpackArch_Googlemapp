@@ -1,7 +1,6 @@
-package com.example.danmech.FragDests
+package com.example.danmech.FragDests.Auth
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
