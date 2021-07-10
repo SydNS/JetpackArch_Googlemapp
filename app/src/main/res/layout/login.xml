@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,11 +24,11 @@
                 android:fontFamily="sans-serif-medium"
                 android:textStyle="normal"
                 android:textColor="#23203f"
-                android:layout_marginTop="47dp"
+                android:layout_marginTop="27dp"
                 android:layout_gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="20sp"
-                android:text="@string/sign_in"
+                android:text="Sign In"
                 />
 
             <TextView
@@ -38,15 +38,15 @@
                 android:letterSpacing="0.0265"
                 android:textColor="#6e6e73"
                 android:layout_gravity="center"
-                android:text="@string/login_to_continue_your_account"
+                android:text="Login to continue your account"
                 android:textSize="17sp"/>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="73dp"
-                android:layout_marginRight="29dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginLeft="29dp"
                 android:orientation="vertical">
 
@@ -54,52 +54,60 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/mechan"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/this_is_app_logo" />
+                    android:layout_gravity="center"/>
 
 
-                    <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/default_text_input_layout"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Username"
+                    android:textColorHint="@color/light_blue_900"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeColor="@android:color/holo_blue_dark"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/default_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#00000000"
-                        android:layout_marginTop="28dp"
-                        android:textSize="25sp"
-                        android:fontFamily="sans-serif-light"
-                        android:textStyle="normal"
-                        android:textColor="#23203f"
-                        android:paddingRight="20dp"
-                        android:inputType="text"
-                        android:autofillHints="Username"
-                        tools:ignore="LabelFor,RtlSymmetry"
-                        android:paddingEnd="20dp" />
+                        android:layout_marginBottom="10dp"
+                        android:paddingTop="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColorHighlight="@android:color/holo_blue_dark"
+                        app:backgroundTint="@android:color/darker_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_marginTop="18dp"
-                    />
 
-                <EditText
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwdlayout"
+                    android:layout_width="290dp"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:layout_marginTop="13.3dp"
-                    android:hint="@string/password"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:paddingRight="20dp"
-                    android:drawableRight="@drawable/view_password"
-                    android:inputType="textPassword"
-                    android:textSize="25sp"
-                    android:fontFamily="sans-serif-light"
-                    android:textStyle="normal"
-                    android:textColor="#9391a4"
+                    android:layout_margin="10dp"
+                    android:hint="Password"
+                    android:textColorHint="@color/light_blue_900"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeColor="@android:color/holo_blue_dark"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    android:autofillHints="Password"
-                    android:paddingEnd="20dp"
-                    tools:ignore="RtlSymmetry"
-                    android:drawableEnd="@drawable/view_password" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingTop="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColorHighlight="@android:color/holo_blue_dark"
+                        app:backgroundTint="@android:color/darker_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <View
                     android:layout_width="match_parent"
@@ -109,14 +117,15 @@
                     />
 
 
-                <TextView
+                <Button
+                    android:elevation="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:layout_marginLeft="33dp"
                     android:layout_marginRight="33dp"
                     android:layout_marginTop="38dp"
                     android:background="@drawable/button_gradient"
-                    android:text="@string/login"
+                    android:text="Login"
                     android:gravity="center"
                     android:lineSpacingExtra="34sp"
                     android:textColor="#ffffff"
@@ -155,8 +164,7 @@
                         android:textStyle="normal"
                         android:textColor="#000000"
                         android:lineSpacingExtra="26sp"
-                        android:text="@string/register"
-                        android:layout_marginStart="5dp" />
+                        android:text="Register"/>
 
                 </LinearLayout>
 
