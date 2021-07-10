@@ -61,7 +61,6 @@
                     android:id="@+id/default_text_input_layout"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:hint="Username"
                     android:textColorHint="@color/light_blue_900"
                     app:boxStrokeWidth="1dp"

@@ -59,9 +59,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/default_text_input_layout"
-                    android:layout_width="290dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:hint="Username"
                     android:textColorHint="@color/light_blue_900"
                     app:boxStrokeWidth="1dp"
@@ -85,9 +85,8 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/passwdlayout"
-                    android:layout_width="290dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
                     android:hint="Password"
                     android:textColorHint="@color/light_blue_900"
                     app:boxStrokeWidth="1dp"
@@ -118,9 +117,10 @@
 
 
                 <Button
+                    android:id="@+id/loginbtn"
                     android:elevation="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="53dp"
                     android:layout_marginLeft="33dp"
                     android:layout_marginRight="33dp"
                     android:layout_marginTop="38dp"
@@ -172,12 +172,10 @@
             </LinearLayout>
 
 
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-s
 
 
 </RelativeLayout>
