@@ -1,4 +1,4 @@
-package com.example.danmech.FragDests
+package com.example.danmech.FragDests.Auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
