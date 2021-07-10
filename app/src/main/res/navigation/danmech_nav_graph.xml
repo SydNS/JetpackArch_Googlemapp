@@ -22,7 +22,16 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.danmech.FragDests.AuthFragment"
+        android:name="com.example.danmech.FragDests.Auth.AuthFragment"
         android:label="fragment_auth"
-        tools:layout="@layout/fragment_auth" />
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_home_map"
+            app:destination="@id/home_map" />
+    </fragment>
+    <fragment
+        android:id="@+id/home_map"
+        android:name="com.example.danmech.FragDests.Maps.Home_map"
+        android:label="fragment_home_map"
+        tools:layout="@layout/fragment_home_map" />
 </navigation>
