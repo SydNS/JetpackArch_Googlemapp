@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.danmech.FragDests.Login
-import com.example.danmech.FragDests.SignUp
+import com.example.danmech.FragDests.Auth.Login
+import com.example.danmech.FragDests.Auth.SignUp
 
 class TablayoutAdapter(context: Context, fm: FragmentManager?) :
     FragmentPagerAdapter(fm!!) {
