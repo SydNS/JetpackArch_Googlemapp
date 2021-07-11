@@ -52,9 +52,9 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/mechan"
-                    android:layout_gravity="center"/>
+                    android:layout_height="108dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/signup" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -164,22 +164,27 @@
                     android:layout_marginTop="18dp"
                     />
 
-
                 <Button
-                    android:elevation="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_marginLeft="33dp"
-                    android:layout_marginRight="33dp"
+                    android:id="@+id/loginbtn"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="38dp"
                     android:background="@drawable/button_gradient"
-                    android:text="Login"
-                    android:gravity="center"
+                    android:drawableEnd="@mipmap/signupdrawable_foreground"
+                    android:drawableRight="@mipmap/signupdrawable_foreground"
+                    android:elevation="5dp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
                     android:lineSpacingExtra="34sp"
-                    android:textColor="#ffffff"
-                    android:textSize="22sp"
+                    android:paddingStart="20dp"
+                    android:paddingLeft="40dp"
                     android:paddingTop="10.5dp"
-                    android:paddingBottom="10.5dp"/>
+                    android:paddingBottom="10.5dp"
+                    android:text="Sign Up"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
