@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "471501890601",
+    "project_id": "moyoapp-e413e",
+    "storage_bucket": "moyoapp-e413e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471501890601:android:cf762e1691774807af2838",
+        "android_client_info": {
+          "package_name": "com.example.danmech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471501890601-h7ak4kctusmkjaias45kmuadla9h0u25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3YrdPmFW6WglAm67vKdkKWsCvYR2yytU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471501890601-h7ak4kctusmkjaias45kmuadla9h0u25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
