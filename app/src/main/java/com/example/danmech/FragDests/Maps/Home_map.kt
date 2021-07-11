@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class Home_map : Fragment() {
+    lateinit var logout_customer_btn: Button
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -36,12 +39,25 @@ class Home_map : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home_map, container, false)
-    }
+        val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
+
+        logout_customer_btn=v.findViewById(R.id.logout_customer_btn)
+
+        logout(logout_customer_btn)
+
+        return v }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+    }
+
+    private fun logout(v: Button) {
+        v.setOnClickListener {
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_home_map_to_authFragment)
+        }
+
     }
 }
