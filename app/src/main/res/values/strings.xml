@@ -12,4 +12,13 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="driver_name">Driver Name</string>
+    <string name="driver_phone_number">Driver Phone Number</string>
+    <string name="driver_car_name">Driver Car Name</string>
+    <string name="call_a_mechanic">Call a Mechanic</string>
+    <string name="details">Details</string>
+    <string name="logout">Logout</string>
+
+
+
 </resources>
