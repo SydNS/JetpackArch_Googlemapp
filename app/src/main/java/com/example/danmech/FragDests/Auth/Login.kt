@@ -11,6 +11,7 @@ import com.example.danmech.R
 
 class Login : Fragment() {
     lateinit var loginbtn:Button
+    lateinit var logout_customer_btn:Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,16 +21,20 @@ class Login : Fragment() {
         activity?.theme?.applyStyle(R.style.loginstylemain,true)
         val v : View=inflater.inflate(R.layout.login,container,false)
         loginbtn=v.findViewById(R.id.loginbtn)
-        login(v)
+        login(loginbtn)
+
+
         return v
     }
 
-    private fun login(v: View) {
+    private fun login(v: Button) {
         v.setOnClickListener {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_authFragment_to_home_map)
         }
 
     }
+
+
 
 }
