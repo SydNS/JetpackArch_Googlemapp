@@ -33,5 +33,9 @@
         android:id="@+id/home_map"
         android:name="com.example.danmech.FragDests.Maps.Home_map"
         android:label="fragment_home_map"
-        tools:layout="@layout/fragment_home_map" />
+        tools:layout="@layout/fragment_home_map" >
+        <action
+            android:id="@+id/action_home_map_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
 </navigation>
