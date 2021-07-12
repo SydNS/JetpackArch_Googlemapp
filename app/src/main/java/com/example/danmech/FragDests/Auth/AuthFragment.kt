@@ -63,7 +63,8 @@ class AuthFragment : Fragment() {
         tabs=v.findViewById<TabLayout>(R.id.tabs)
         vp=v.findViewById<ViewPager>(R.id.vpauth)
 
-        toolbar.title= R.string.app_name.toString()
+
+
 
 //        adapter
         tablayoutAdapter=TablayoutAdapter(ctx,parentFragmentManager)
