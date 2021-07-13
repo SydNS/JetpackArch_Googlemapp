@@ -109,9 +109,9 @@ class WalkThrough : Fragment() {
                         next.visibility = View.VISIBLE
                         welcome.visibility = View.INVISIBLE
 
-                        ind1.visibility = View.VISIBLE
-                        ind2.visibility = View.INVISIBLE
-                        ind3.visibility = View.INVISIBLE
+                        ind3.setImageResource(R.drawable.dotactive)
+                        ind1.setImageResource(R.drawable.dotinactive)
+                        ind2.setImageResource(R.drawable.dotinactive)
 
 
                     }
@@ -120,12 +120,20 @@ class WalkThrough : Fragment() {
                         next.visibility = View.VISIBLE
                         welcome.visibility = View.INVISIBLE
 
+                        ind3.setImageResource(R.drawable.dotinactive)
+                        ind1.setImageResource(R.drawable.dotactive)
+                        ind2.setImageResource(R.drawable.dotinactive)
+
 
                     }
                     2 -> {
                         prev.visibility = View.INVISIBLE
                         next.visibility = View.INVISIBLE
                         welcome.visibility = View.VISIBLE
+
+                        ind3.setImageResource(R.drawable.dotinactive)
+                        ind1.setImageResource(R.drawable.dotinactive)
+                        ind2.setImageResource(R.drawable.dotactive)
 
 
                     }
