@@ -8,5 +8,9 @@
     <style name="loginstyle" parent="LoginThem"/>
     <style name="loginstylemain" parent="Theme.MaterialComponents"/>
 
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/caviardreams</item>
+        <item name="color">@color/white</item>
+    </style>
 
 </resources>
