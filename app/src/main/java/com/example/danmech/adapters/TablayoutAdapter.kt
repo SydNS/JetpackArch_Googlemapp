@@ -24,6 +24,8 @@ class TablayoutAdapter(context: Context, fm: FragmentManager?) :
         }
     }
 
+
+
     // this counts total number of tabs
     override fun getCount(): Int {
         return 2
