@@ -25,6 +25,9 @@ class WalkThrough : Fragment() {
     private lateinit var dot1: ImageView
     private lateinit var dot2: ImageView
     private lateinit var dot3: ImageView
+    private lateinit var dot4: ImageView
+    private lateinit var dot5: ImageView
+    private lateinit var dot6: ImageView
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -74,7 +77,7 @@ class WalkThrough : Fragment() {
         dot3 = view.findViewById(R.id.dot3)
 
 
-        managingViewPager(prev, next, welcome)
+        managingViewPager(prev, next, welcome, dot1, dot2, dot3)
 
 
         return view
@@ -83,7 +86,11 @@ class WalkThrough : Fragment() {
     private fun managingViewPager(
         prev: Button,
         next: Button,
-        welcome: Button
+        welcome: Button,
+        ind1: ImageView,
+        ind2: ImageView,
+        ind3: ImageView
+
 
     ) {
         prev.setOnClickListener {
@@ -102,9 +109,10 @@ class WalkThrough : Fragment() {
                         next.visibility = View.VISIBLE
                         welcome.visibility = View.INVISIBLE
 
-//                        ind1.visibility=View.VISIBLE
-//                        ind2.visibility=View.INVISIBLE
-//                        ind3.visibility=View.INVISIBLE
+                        ind1.visibility = View.VISIBLE
+                        ind2.visibility = View.INVISIBLE
+                        ind3.visibility = View.INVISIBLE
+
 
                     }
                     1 -> {
