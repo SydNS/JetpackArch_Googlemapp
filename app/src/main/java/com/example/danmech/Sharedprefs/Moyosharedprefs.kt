@@ -7,8 +7,8 @@ import android.content.SharedPreferences
 /**
  * Class for Shared Preference
  */
-class Moyosharedprefs (var context: Context) {
-    fun NotNew() {
+class Moyosharedprefs(var context: Context) {
+    fun MakeOld() {
         val sharedPreferences =
             context.getSharedPreferences("NotTheFirstTime", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -16,7 +16,7 @@ class Moyosharedprefs (var context: Context) {
         editor.apply()
     }
 
-    val isUserOld: Boolean
+    val isUserNotOld: Boolean
         get() {
             val sharedPreferences =
                 context.getSharedPreferences("NotTheFirstTime", Context.MODE_PRIVATE)
