@@ -1,5 +1,7 @@
 package com.example.danmech.FragDests
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +30,8 @@ class WalkThrough : Fragment() {
     private lateinit var dot4: ImageView
     private lateinit var dot5: ImageView
     private lateinit var dot6: ImageView
+
+    private lateinit var sharedpreferences:SharedPreferences
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -64,6 +68,9 @@ class WalkThrough : Fragment() {
             "Moyo App Got You Covered"
 
         )
+
+        sharedpreferences = context?.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE)!!
+
 
         val adapter = ViewPagerAdapter(imagesList, titlesList, sloganList)
         viewPager2 = view.findViewById(R.id.viewPager)
