@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.danmech.R
 import com.example.danmech.R.*
+import com.example.danmech.Sharedprefs.Moyosharedprefs
 import com.example.danmech.adapters.ViewPagerAdapter
 
 
@@ -31,7 +32,7 @@ class WalkThrough : Fragment() {
     private lateinit var dot5: ImageView
     private lateinit var dot6: ImageView
 
-    private lateinit var sharedpreferences:SharedPreferences
+    private lateinit var moyosharedprefs: Moyosharedprefs
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -69,8 +70,7 @@ class WalkThrough : Fragment() {
 
         )
 
-        sharedpreferences = context?.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE)!!
-
+        moyosharedprefs= Moyosharedprefs(view.context)
 
         val adapter = ViewPagerAdapter(imagesList, titlesList, sloganList)
         viewPager2 = view.findViewById(R.id.viewPager)
@@ -116,9 +116,9 @@ class WalkThrough : Fragment() {
                         next.visibility = View.VISIBLE
                         welcome.visibility = View.INVISIBLE
 
-                        ind3.setImageResource(R.drawable.dotactive)
-                        ind1.setImageResource(R.drawable.dotinactive)
-                        ind2.setImageResource(R.drawable.dotinactive)
+                        ind3.setImageResource(drawable.dotactive)
+                        ind1.setImageResource(drawable.dotinactive)
+                        ind2.setImageResource(drawable.dotinactive)
 
 
                     }
@@ -127,9 +127,9 @@ class WalkThrough : Fragment() {
                         next.visibility = View.VISIBLE
                         welcome.visibility = View.INVISIBLE
 
-                        ind3.setImageResource(R.drawable.dotinactive)
-                        ind1.setImageResource(R.drawable.dotactive)
-                        ind2.setImageResource(R.drawable.dotinactive)
+                        ind3.setImageResource(drawable.dotinactive)
+                        ind1.setImageResource(drawable.dotactive)
+                        ind2.setImageResource(drawable.dotinactive)
 
 
                     }
@@ -138,9 +138,9 @@ class WalkThrough : Fragment() {
                         next.visibility = View.INVISIBLE
                         welcome.visibility = View.VISIBLE
 
-                        ind3.setImageResource(R.drawable.dotinactive)
-                        ind1.setImageResource(R.drawable.dotinactive)
-                        ind2.setImageResource(R.drawable.dotactive)
+                        ind3.setImageResource(drawable.dotinactive)
+                        ind1.setImageResource(drawable.dotinactive)
+                        ind2.setImageResource(drawable.dotactive)
 
 
                     }
@@ -151,8 +151,11 @@ class WalkThrough : Fragment() {
         })
 
         welcome.setOnClickListener {
+            moyosharedprefs.MakeOld()
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_walkThrough_to_authFragment)
+
+
 
 
         }
