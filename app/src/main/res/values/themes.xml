@@ -19,7 +19,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/moyosplash</item>
+        <item name="android:windowBackground">@drawable/newsplash</item>
     </style>
 
 
@@ -27,5 +27,5 @@
 
     </style>
 
-    <color name="splashcolor">#B503A9F4</color>
+<!--    <color name="splashcolor">#B503A9F4</color>-->
 </resources>
