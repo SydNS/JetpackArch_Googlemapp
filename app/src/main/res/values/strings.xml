@@ -18,7 +18,10 @@
     <string name="call_a_mechanic">Call a Mechanic</string>
     <string name="details">Details</string>
     <string name="logout">Logout</string>
-
+    <string name="call_a_watertank">Call Water Tank</string>
+    <string name="todo">TODO</string>
+    <string name="next">next</string>
+    <string name="welcome">Welcome</string>
 
 
 </resources>
