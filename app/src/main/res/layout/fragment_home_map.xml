@@ -47,7 +47,8 @@
             android:text="@string/driver_name"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/profile_image_driver" />
 
         <TextView
             android:id="@+id/phone_driver"
@@ -112,7 +113,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/settings_customer_btn"
+        android:id="@+id/logout_customer_btn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
@@ -130,10 +131,11 @@
         android:text="@string/logout"
         android:textStyle="bold"
         android:drawableLeft="@drawable/back"
-        tools:ignore="RtlCompat" />
+        tools:ignore="RtlCompat"
+        android:drawableStart="@drawable/back" />
 
     <Button
-        android:id="@+id/logout_customer_btn"
+        android:id="@+id/settings_customer_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
