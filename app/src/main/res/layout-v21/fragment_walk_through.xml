@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FragDests.WalkThrough">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btns"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dotactive"
+            android:contentDescription="TODO" />
+
+
+        <ImageView
+            android:id="@+id/dot2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/dot1"
+            android:background="@drawable/dotactive"
+            android:layout_toEndOf="@id/dot1"
+            android:layout_marginStart="20dp" />
+
+
+        <ImageView
+            android:id="@+id/dot3"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/dot1"
+            android:background="@drawable/dotactive" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/wtbtnbg"
+            android:elevation="5dp"
+            android:fontFamily="@font/caviardreams"
+            android:text="previous"
+            android:textColor="#0F1749" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/wtbtnbg"
+            android:elevation="5dp"
+            android:fontFamily="@font/caviardreams"
+            android:text="@string/next"
+            android:textColor="#0F1749" />
+
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/wtbtnbg"
+            android:elevation="5dp"
+            android:fontFamily="@font/caviardreams"
+            android:text="@string/welcome"
+            android:textColor="#0F1749"
+            android:layout_marginEnd="15dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
