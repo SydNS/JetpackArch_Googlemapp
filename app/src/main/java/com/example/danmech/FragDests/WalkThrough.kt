@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.danmech.R
+import com.example.danmech.R.*
 import com.example.danmech.adapters.ViewPagerAdapter
 
 
@@ -19,6 +21,11 @@ class WalkThrough : Fragment() {
     private lateinit var next: Button
     private lateinit var welcome: Button
 
+
+    private lateinit var dot1: ImageView
+    private lateinit var dot2: ImageView
+    private lateinit var dot3: ImageView
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -28,46 +35,57 @@ class WalkThrough : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
-        val view = inflater.inflate(R.layout.fragment_walk_through, container, false)
+        val view = inflater.inflate(layout.fragment_walk_through, container, false)
         val imagesList = listOf(
 
-                R.drawable.bg,
-                R.drawable.bg,
-                R.drawable.bg
+            drawable.one,
+            drawable.clean,
+            drawable.man
         )
         val sloganList = listOf(
 
-                "Mechanics probably won’t need the ones that show the basic stuff like changing oil.",
-                "Bringing the best mechanics to your convenience whenever you have a motor breackage.",
-                "Mechanics probably won’t need the ones that show the basic stuff like changing oil."
+            "You can simply serch us our location location on google maps",
+            "Our straightforward goal is to bring the best drinking water suppliers nearby your place.",
+            " Place your order and Get pure and hygienic water deliveries directly to your doorstep through our online water delivery app"
         )
         val titlesList = listOf(
 
-                "Mechanics",
-                "Mechanics",
-                "Mechanics"
+            "Moyo Water ",
+            "Quenching your need for h20",
+            "Moyo App Got You Covered"
 
-                )
+        )
 
         val adapter = ViewPagerAdapter(imagesList, titlesList, sloganList)
         viewPager2 = view.findViewById(R.id.viewPager)
         viewPager2.adapter = adapter
         prev = view.findViewById(R.id.prev)
         next = view.findViewById(R.id.next)
-        welcome= view.findViewById(R.id.skip)
+        welcome = view.findViewById(R.id.skip)
+
+        dot1 = view.findViewById(R.id.dot1)
+        dot2 = view.findViewById(R.id.dot2)
+        dot3 = view.findViewById(R.id.dot3)
 
 
-        managingViewPager(prev, next,welcome)
+        managingViewPager(prev, next, welcome)
 
 
         return view
     }
 
-    private fun managingViewPager(prev: Button, next: Button,welcome:Button) {
+    private fun managingViewPager(
+        prev: Button,
+        next: Button,
+        welcome: Button
+
+    ) {
         prev.setOnClickListener {
             viewPager2.currentItem = viewPager2.currentItem - 1
         }
@@ -80,21 +98,28 @@ class WalkThrough : Fragment() {
                 super.onPageSelected(position)
                 when (position) {
                     0 -> {
-                        prev.visibility=View.INVISIBLE
-                        next.visibility=View.VISIBLE
-                        welcome.visibility=View.INVISIBLE
+                        prev.visibility = View.INVISIBLE
+                        next.visibility = View.VISIBLE
+                        welcome.visibility = View.INVISIBLE
+
+//                        ind1.visibility=View.VISIBLE
+//                        ind2.visibility=View.INVISIBLE
+//                        ind3.visibility=View.INVISIBLE
 
                     }
                     1 -> {
-                        prev.visibility=View.VISIBLE
-                        next.visibility=View.VISIBLE
-                        welcome.visibility=View.INVISIBLE
+                        prev.visibility = View.VISIBLE
+                        next.visibility = View.VISIBLE
+                        welcome.visibility = View.INVISIBLE
+
 
                     }
                     2 -> {
-                        prev.visibility=View.INVISIBLE
-                        next.visibility=View.INVISIBLE
-                        welcome.visibility=View.VISIBLE
+                        prev.visibility = View.INVISIBLE
+                        next.visibility = View.INVISIBLE
+                        welcome.visibility = View.VISIBLE
+
+
                     }
                 }
 
@@ -107,10 +132,7 @@ class WalkThrough : Fragment() {
                 .navigate(R.id.action_walkThrough_to_authFragment)
 
 
-
-
         }
-
 
 
     }
@@ -127,9 +149,9 @@ class WalkThrough : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-                WalkThrough().apply {
+            WalkThrough().apply {
 
 
-                }
+            }
     }
 }
