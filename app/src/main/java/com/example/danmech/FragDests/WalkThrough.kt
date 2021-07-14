@@ -52,9 +52,9 @@ class WalkThrough : Fragment() {
         val view = inflater.inflate(layout.fragment_walk_through, container, false)
         val imagesList = listOf(
 
-            drawable.one,
+            drawable.walkthrough2,
             drawable.clean,
-            drawable.man
+            drawable.walkthrough1
         )
         val sloganList = listOf(
 
