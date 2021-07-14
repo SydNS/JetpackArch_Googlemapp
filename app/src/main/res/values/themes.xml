@@ -19,13 +19,9 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/newsplash</item>
+        <item name="android:windowBackground">@drawable/walkthrough3</item>
     </style>
 
 
-    <style name="LoginThem" parent="Theme.AppCompat.NoActionBar">
-
-    </style>
-
-<!--    <color name="splashcolor">#B503A9F4</color>-->
+    <!--    <color name="splashcolor">#B503A9F4</color>-->
 </resources>
