@@ -1,25 +1,15 @@
 <resources>
     <string name="app_name">Moyo H2O</string>
-    <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="slogan">The form is mechanic when on any given material we impress a predetermined form.</string>
     <string name="already_have_an_account">Already have an account ?</string>
-    <string name="sign_in">Sign In</string>
-    <string name="login_to_continue_your_account">Login to continue your account</string>
-    <string name="this_is_app_logo">this is app Logo</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
     <string name="driver_name">Driver Name</string>
     <string name="driver_phone_number">Driver Phone Number</string>
     <string name="driver_car_name">Driver Car Name</string>
-    <string name="call_a_mechanic">Call a Mechanic</string>
     <string name="details">Details</string>
     <string name="logout">Logout</string>
-    <string name="call_a_watertank">Call Water Tank</string>
-    <string name="todo">TODO</string>
+    <string name="call_a_watertank">Call Water Truck</string>
     <string name="next">next</string>
     <string name="welcome">Welcome</string>
 
