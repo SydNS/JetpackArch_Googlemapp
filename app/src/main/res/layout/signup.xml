@@ -56,7 +56,6 @@
                     android:src="@drawable/h20removebgpreview" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/default_text_input_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -67,7 +66,6 @@
                     app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/default_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -82,7 +80,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/reg_emailaddresslayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -93,7 +90,6 @@
                     app:endIconDrawable="@android:drawable/ic_dialog_email">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/reg_emailaddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -108,7 +104,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwdlayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -119,7 +114,6 @@
                     app:endIconDrawable="@android:drawable/ic_lock_lock">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password_edittext1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -134,7 +128,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwdlayout2"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -146,7 +139,6 @@
                     app:endIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password_edittext2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -161,7 +153,7 @@
 
 
                 <Button
-                    android:id="@+id/loginbtn"
+                    android:id="@+id/signupbtn"
                     android:layout_width="220dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
