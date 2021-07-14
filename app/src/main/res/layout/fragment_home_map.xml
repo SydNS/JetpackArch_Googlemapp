@@ -14,7 +14,6 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/rel1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/call_a_car_button"
@@ -66,7 +65,6 @@
             android:layout_toEndOf="@+id/profile_image_driver" />
 
         <TextView
-            android:id="@+id/car_name_driver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/phone_driver"
@@ -81,7 +79,6 @@
             android:layout_toEndOf="@+id/profile_image_driver" />
 
         <Button
-            android:id="@+id/callingbtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
@@ -135,7 +132,6 @@
         android:drawableStart="@drawable/back" />
 
     <Button
-        android:id="@+id/settings_customer_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
