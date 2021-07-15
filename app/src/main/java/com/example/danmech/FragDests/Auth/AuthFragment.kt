@@ -71,16 +71,10 @@ class AuthFragment : Fragment() {
         tabs=v.findViewById<TabLayout>(R.id.tabs)
         vp=v.findViewById<ViewPager>(R.id.vpauth)
 
-
-
-
-//        adapter
+//        adapter for attahing the tab with the viewpager that wll swipe thru the frags
         tablayoutAdapter=TablayoutAdapter(ctx,parentFragmentManager)
         vp.adapter=tablayoutAdapter
         tabs.setupWithViewPager(vp)
-
-
-
 
         return v }
 
