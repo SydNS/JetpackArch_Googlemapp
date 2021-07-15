@@ -63,7 +63,8 @@
                     android:hint="Username"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="1dp">
+                    app:boxStrokeWidth="1dp"
+                    android:id="@+id/username">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -87,7 +88,9 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:endIconDrawable="@android:drawable/ic_dialog_email">
+                    app:endIconDrawable="@android:drawable/ic_dialog_email"
+                    android:id="@+id/emailaddress">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -111,7 +114,8 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:endIconDrawable="@android:drawable/ic_lock_lock">
+                    app:endIconDrawable="@android:drawable/ic_lock_lock"
+                    android:id="@+id/password">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -136,7 +140,8 @@
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     app:endIconDrawable="@android:drawable/ic_lock_lock"
-                    app:endIconTint="@color/white">
+                    app:endIconTint="@color/white"
+                    android:id="@+id/password2">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
