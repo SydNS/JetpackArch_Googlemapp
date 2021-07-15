@@ -2,12 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/walkThrough">
+    app:startDestination="@id/home_map">
     <fragment
         android:id="@+id/splashscreen"
         android:name="com.example.danmech.FragDests.Splashscreen"
         android:label="fragment_splashscreen"
-        tools:layout="@layout/fragment_splashscreen" />
+        tools:layout="@layout/fragment_splashscreen" >
+        <action
+            android:id="@+id/action_splashscreen_to_walkThrough"
+            app:destination="@id/walkThrough" />
+        <action
+            android:id="@+id/action_splashscreen_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
     <fragment
         android:id="@+id/walkThrough"
         android:name="com.example.danmech.FragDests.WalkThrough"
@@ -40,5 +47,8 @@
             app:destination="@id/authFragment"
             app:popUpTo="@id/home_map"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_map_to_walkThrough"
+            app:destination="@id/walkThrough" />
     </fragment>
 </navigation>

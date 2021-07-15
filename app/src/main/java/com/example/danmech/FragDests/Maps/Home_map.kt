@@ -1,5 +1,6 @@
 package com.example.danmech.FragDests.Maps
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
+import com.example.danmech.Sharedprefs.Moyosharedprefs
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,6 +20,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class Home_map : Fragment() {
     lateinit var logout_customer_btn: Button
+
+    private lateinit var moyosharedprefs: Moyosharedprefs
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -41,11 +51,27 @@ class Home_map : Fragment() {
     ): View? {
         val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
 
+        moyosharedprefs=Moyosharedprefs(requireActivity().applicationContext)
+
+        if(!isUserOld()){
+            NavHostFragment
+                .findNavController(this)
+                .navigate(R.id.action_home_map_to_walkThrough)
+        }
+
+
         logout_customer_btn=v.findViewById(R.id.logout_customer_btn)
 
         logout(logout_customer_btn)
 
         return v }
+
+    fun isUserOld(): Boolean {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+
+        return sharedPreferences.getBoolean("Old",false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

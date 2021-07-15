@@ -10,18 +10,17 @@ import android.content.SharedPreferences
 class Moyosharedprefs(var context: Context) {
     fun MakeOld() {
         val sharedPreferences =
-            context.getSharedPreferences("NotTheFirstTime", Context.MODE_PRIVATE)
+            context.getSharedPreferences("FirstTime", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("Old", "true")
         editor.apply()
     }
 
-    val isUserNotOld: Boolean
-        get() {
+    fun isUserOld(): String? {
             val sharedPreferences =
-                context.getSharedPreferences("NotTheFirstTime", Context.MODE_PRIVATE)
-            val isEmailEmpty = sharedPreferences.getString("Old", "")!!.isEmpty()
-            return isEmailEmpty
+                context.getSharedPreferences("FirstTime", Context.MODE_PRIVATE)
+            val isOld = sharedPreferences.getString("Old",null)
+            return isOld
         }
 
 

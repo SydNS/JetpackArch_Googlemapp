@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager.widget.ViewPager
 import com.example.danmech.R
 import com.example.danmech.adapters.TablayoutAdapter
@@ -43,6 +44,13 @@ class AuthFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+//        if(1==1){
+//
+//            NavHostFragment.findNavController(this)
+//                .navigate(R.id.action_authFragment_to_splashscreen)
+//        }
     }
 
     override fun onAttach(context: Context) {

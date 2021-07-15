@@ -70,18 +70,25 @@ class WalkThrough : Fragment() {
 
         )
 
-        moyosharedprefs= Moyosharedprefs(view.context)
+        moyosharedprefs= Moyosharedprefs(requireActivity().applicationContext)
 
         val adapter = ViewPagerAdapter(imagesList, titlesList, sloganList)
         viewPager2 = view.findViewById(R.id.viewPager)
         viewPager2.adapter = adapter
         prev = view.findViewById(R.id.prev)
         next = view.findViewById(R.id.next)
-        welcome = view.findViewById(R.id.skip)
+        welcome = view.findViewById(R.id.welcome)
 
         dot1 = view.findViewById(R.id.dot1)
         dot2 = view.findViewById(R.id.dot2)
         dot3 = view.findViewById(R.id.dot3)
+        welcome.setOnClickListener {
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_walkThrough_to_authFragment)
+
+
+
+        }
 
 
         managingViewPager(prev, next, welcome, dot1, dot2, dot3)
@@ -150,18 +157,25 @@ class WalkThrough : Fragment() {
 //override method(s) what you need it
         })
 
-        welcome.setOnClickListener {
-            moyosharedprefs.MakeOld()
+        welcome.setOnClickListener {MakeOld()
+
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_walkThrough_to_authFragment)
-
-
-
 
         }
 
 
     }
+
+    fun MakeOld() {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("Old", true)
+        editor.apply()
+    }
+
+
 
 
     companion object {
