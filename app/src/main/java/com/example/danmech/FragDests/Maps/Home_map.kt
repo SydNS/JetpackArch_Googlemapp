@@ -26,6 +26,12 @@ class Home_map : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if(!isUserOld()){
+            NavHostFragment
+                .findNavController(this)
+                .navigate(R.id.action_home_map_to_walkThrough)
+        }
+
     }
 
 
@@ -52,12 +58,12 @@ class Home_map : Fragment() {
         val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
 
         moyosharedprefs=Moyosharedprefs(requireActivity().applicationContext)
-
-        if(!isUserOld()){
-            NavHostFragment
-                .findNavController(this)
-                .navigate(R.id.action_home_map_to_walkThrough)
-        }
+//
+//        if(!isUserOld()){
+//            NavHostFragment
+//                .findNavController(this)
+//                .navigate(R.id.action_home_map_to_walkThrough)
+//        }
 
 
         logout_customer_btn=v.findViewById(R.id.logout_customer_btn)
