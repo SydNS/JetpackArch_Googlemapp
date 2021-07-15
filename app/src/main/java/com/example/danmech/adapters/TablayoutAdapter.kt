@@ -11,6 +11,7 @@ class TablayoutAdapter(context: Context, fm: FragmentManager?) :
     FragmentPagerAdapter(fm!!) {
     private val myContext: Context = context
 
+// this provides the fragment for the different positions in the this screen to swipe thhru
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
@@ -24,9 +25,7 @@ class TablayoutAdapter(context: Context, fm: FragmentManager?) :
         }
     }
 
-
-
-    // this counts total number of tabs
+   // this counts total number of tabs
     override fun getCount(): Int {
         return 2
     }
