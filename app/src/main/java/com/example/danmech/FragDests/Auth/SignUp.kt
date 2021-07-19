@@ -140,7 +140,6 @@ class SignUp : Fragment() {
                             )
                     customersDatabaseRef.setValue(true)
 
-
                     loadingBar!!.dismiss()
 
 
