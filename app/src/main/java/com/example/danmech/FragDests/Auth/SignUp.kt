@@ -47,7 +47,6 @@ class SignUp : Fragment() {
     private lateinit var firbasedatabase: FirebaseDatabase
     private lateinit var database: DatabaseReference
     private lateinit var customersDatabaseRef: DatabaseReference
-    private lateinit var mAuth: FirebaseAuth
     private lateinit var loadingBar: ProgressDialog
     private lateinit var currentUser: FirebaseUser
     lateinit var currentUserId: String
@@ -133,6 +132,17 @@ class SignUp : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    currentUserId = user!!.uid
+                    customersDatabaseRef =
+                        FirebaseDatabase.getInstance().reference.child("Users")
+                            .child("Customers").child(
+                                currentUserId
+                            )
+                    customersDatabaseRef.setValue(true)
+
+
+                    loadingBar!!.dismiss()
+
 
                 } else {
                     // If sign in fails, display a message to the user.
