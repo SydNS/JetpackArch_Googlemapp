@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.danmech.FragDests.Auth
 
+import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,7 +19,10 @@ import com.example.danmech.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 
@@ -35,8 +41,14 @@ class SignUp : Fragment() {
     //firebase variables
     private lateinit var auth: FirebaseAuth
 
-    //progressbar
-    private lateinit var progressBar: ProgressBar
+
+    private lateinit var firebaseAuthListner: FirebaseAuth.AuthStateListener
+    private lateinit var firbasedatabase: FirebaseDatabase
+    private lateinit var customersDatabaseRef: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var loadingBar: ProgressDialog
+    private lateinit var currentUser: FirebaseUser
+    lateinit var currentUserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +60,7 @@ class SignUp : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
@@ -64,6 +77,7 @@ class SignUp : Fragment() {
         val v: View = inflater.inflate(R.layout.signup, container, false)
 
 
+        private var loadingBar: ProgressDialog? = null
 //        hooking views to e used in the class
         username = v.findViewById(R.id.username)
         useremailaddress = v.findViewById(R.id.emailaddress)
@@ -89,7 +103,7 @@ class SignUp : Fragment() {
             }
 
             if (TextUtils.isEmpty(password)) {
-                userpassword.error="Password is empty"
+                userpassword.error = "Password is empty"
                 Toast.makeText(
                     requireActivity(),
                     "Enter password!",
@@ -98,7 +112,7 @@ class SignUp : Fragment() {
             }
 
             if (password.length < 6) {
-                userpassword.error="Password is short"
+                userpassword.error = "Password is short"
                 Toast.makeText(
                     requireActivity(),
                     "Password too short, enter minimum 6 characters!",
@@ -141,5 +155,12 @@ class SignUp : Fragment() {
 
         return v
     }
+
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuthListner?.let { auth?.removeAuthStateListener(it) }
+    }
+
 
 }
