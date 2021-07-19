@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
@@ -44,6 +45,7 @@ class SignUp : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseAuthListner: FirebaseAuth.AuthStateListener
     private lateinit var firbasedatabase: FirebaseDatabase
+    private lateinit var database: DatabaseReference
     private lateinit var customersDatabaseRef: DatabaseReference
     private lateinit var mAuth: FirebaseAuth
     private lateinit var loadingBar: ProgressDialog
@@ -58,12 +60,8 @@ class SignUp : Fragment() {
         firebaseAuthListner = FirebaseAuth.AuthStateListener {
             currentUser = FirebaseAuth.getInstance().currentUser!!
 
-            if (currentUser != null) {
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_authFragment_to_home_map)
-
-
-            }
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_authFragment_to_home_map)
         }
     }
 
@@ -73,9 +71,9 @@ class SignUp : Fragment() {
 
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-//            reload();
-        }
+//        if (currentUser != null) {
+//            1=1
+//        }
     }
 
 
@@ -86,8 +84,8 @@ class SignUp : Fragment() {
     ): View? {
         val v: View = inflater.inflate(R.layout.signup, container, false)
 
-
-        private var loadingBar: ProgressDialog? = null
+        database = Firebase.database.reference
+        loadingBar= ProgressDialog(activity)
 //        hooking views to e used in the class
         username = v.findViewById(R.id.username)
         useremailaddress = v.findViewById(R.id.emailaddress)
@@ -130,24 +128,19 @@ class SignUp : Fragment() {
                 ).show()
             }
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-//                        updateUI(user)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            requireActivity(), "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-//                        updateUI(null)
-                    }
-                }
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
 
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", it.exception)
+                    Toast.makeText(activity, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
 
 
 
