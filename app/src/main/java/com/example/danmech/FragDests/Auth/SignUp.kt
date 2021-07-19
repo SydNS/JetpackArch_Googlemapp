@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
 import com.google.android.material.tabs.TabLayout
@@ -44,18 +45,17 @@ class SignUp : Fragment() {
     //firebase variables
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseAuthListner: FirebaseAuth.AuthStateListener
-    private lateinit var firbasedatabase: FirebaseDatabase
-    private lateinit var database: DatabaseReference
+    private lateinit var firebasedatabase: FirebaseDatabase
     private lateinit var customersDatabaseRef: DatabaseReference
     private lateinit var loadingBar: ProgressDialog
     private lateinit var currentUser: FirebaseUser
-    lateinit var currentUserId: String
+    private lateinit var currentUserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance()
+
         firebaseAuthListner = FirebaseAuth.AuthStateListener {
             currentUser = FirebaseAuth.getInstance().currentUser!!
 
@@ -65,15 +65,15 @@ class SignUp : Fragment() {
     }
 
 
-    override fun onStart() {
-        super.onStart()
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            1=1
-//        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        val currentUser = auth.currentUser
+////        if (currentUser != null) {
+////            1=1
+////        }
+//    }
 
 
     override fun onCreateView(
@@ -83,8 +83,14 @@ class SignUp : Fragment() {
     ): View? {
         val v: View = inflater.inflate(R.layout.signup, container, false)
 
-        database = Firebase.database.reference
-        loadingBar= ProgressDialog(activity)
+
+        auth = FirebaseAuth.getInstance()
+        firebasedatabase = FirebaseDatabase.getInstance()
+
+
+
+        loadingBar = ProgressDialog(activity)
+
 //        hooking views to e used in the class
         username = v.findViewById(R.id.username)
         useremailaddress = v.findViewById(R.id.emailaddress)
@@ -99,6 +105,8 @@ class SignUp : Fragment() {
             val email: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
+
+
 
             if (TextUtils.isEmpty(email)) {
                 Toast.makeText(
@@ -126,31 +134,13 @@ class SignUp : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    currentUserId = user!!.uid
-                    customersDatabaseRef =
-                        FirebaseDatabase.getInstance().reference.child("Users")
-                            .child("Customers").child(
-                                currentUserId
-                            )
-                    customersDatabaseRef.setValue(true)
-
-                    loadingBar!!.dismiss()
+            val user:String="Clients"
+            loadingBar!!.setTitle("Please wait :")
+            loadingBar!!.setMessage("While system is performing processing on your data...")
+            loadingBar!!.show()
 
 
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", it.exception)
-                    Toast.makeText(activity, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                }
-            }
-
+            createAccount(email,password,v,user,"User")
 
 
             layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
@@ -159,20 +149,77 @@ class SignUp : Fragment() {
             tabs.getTabAt(0)
         }
 
-
-
-
-
-
-
         return v
     }
 
+    private fun createAccount(
+        email: String,
+        password: String,
+        view: View,
+        childname: String,
+        appuser: String
+    ) {
 
-//override fun onStop() {
-//    super.onStop()
-//    firebaseAuthListner?.let { auth?.removeAuthStateListener(it) }
-//}
+        // [START create_user_with_email]
+
+        loadingBar!!.setTitle("Please wait :")
+        loadingBar!!.setMessage("While system is performing processing on your data...")
+        loadingBar!!.show()
+
+        auth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
+            if (it.isSuccessful) {
+
+                // Sign in success, update UI with the signed-in user's information
+                Log.d(TAG, "createUserWithEmail:success")
+                val user = auth?.currentUser
+
+                currentUserId = user?.uid.toString()
+                customersDatabaseRef = firebasedatabase
+                    .reference
+                    .child("Users").child(childname).child(currentUserId!!)
+//                        .child("Users").child("Mechanics").child(currentUserId!!)
+                customersDatabaseRef!!.setValue(true)
+
+                Toast.makeText(activity, "Welcome $currentUserId to the $appuser-side", Toast.LENGTH_SHORT).show()
+
+                loadingBar!!.dismiss()
+
+
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_authFragment_to_home_map)
+            } else {
+                // If sign in fails, display a message to the user.
+//                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                Toast.makeText(
+                    activity,
+                    "Error Occured ${it.exception?.message.toString()}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                loadingBar!!.dismiss()
+
+            }
+
+        }
+    }
+
+
+
+
+//        override fun onStart() {
+//            super.onStart()
+//            // Check if user is signed in (non-null) and update UI accordingly.
+//            val currentUser = auth?.currentUser
+//            firebaseAuthListner?.let { auth?.addAuthStateListener(it) }
+//
+//        }
+//
+//        override fun onStop() {
+//            super.onStop()
+//            firebaseAuthListner?.let { auth?.removeAuthStateListener(it) }
+//        }
+
+
+
 
 
 }
