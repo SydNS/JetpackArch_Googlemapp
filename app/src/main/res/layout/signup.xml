@@ -56,6 +56,7 @@
                     android:src="@drawable/h20removebgpreview" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/username"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -63,8 +64,7 @@
                     android:hint="Username"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="1dp"
-                    android:id="@+id/username">
+                    app:boxStrokeWidth="1dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -81,6 +81,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailaddress"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -88,8 +89,7 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:endIconDrawable="@android:drawable/ic_dialog_email"
-                    android:id="@+id/emailaddress">
+                    app:endIconDrawable="@android:drawable/ic_dialog_email">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -107,6 +107,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -114,14 +115,14 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:endIconDrawable="@android:drawable/ic_lock_lock"
-                    android:id="@+id/password">
+                    app:endIconDrawable="@android:drawable/ic_lock_lock">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/caviardreams"
+                        android:inputType="textPassword"
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
@@ -132,6 +133,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password2"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -140,8 +142,7 @@
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     app:endIconDrawable="@android:drawable/ic_lock_lock"
-                    app:endIconTint="@color/white"
-                    android:id="@+id/password2">
+                    app:endIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -151,6 +152,7 @@
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
+                        android:inputType="textPassword"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
 
