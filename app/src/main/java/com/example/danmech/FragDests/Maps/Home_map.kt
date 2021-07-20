@@ -20,6 +20,7 @@ import com.example.danmech.Sharedprefs.Moyosharedprefs
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
 import com.firebase.geofire.GeoQuery
+import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
@@ -35,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -58,7 +60,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     private var currentUser: FirebaseUser? = null
     private var CustomerDatabaseRef: DatabaseReference? = null
     private var CustomerPickUpLocation: LatLng? = null
-    private var DelivererAvailableRef: DatabaseReference? = null
+    private var delivererAvailableRef: DatabaseReference? = null
     private var DriverLocationRef: DatabaseReference? = null
     private var DriversRef: DatabaseReference? = null
     private var radius: Int = 1
@@ -112,6 +114,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
         val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
 
 //        initialising variable on the creation of the frag
+        mAuth = FirebaseAuth.getInstance()
+        currentUser = mAuth!!.getCurrentUser()
+        customerID = FirebaseAuth.getInstance().getCurrentUser()?.getUid()
+        CustomerDatabaseRef =
+            FirebaseDatabase.getInstance().getReference().child("Customer Requests")
+        delivererAvailableRef =
+            FirebaseDatabase.getInstance().getReference().child("Drivers Available")
+        DriverLocationRef = FirebaseDatabase.getInstance().getReference().child("Drivers Working")
 
 
 
