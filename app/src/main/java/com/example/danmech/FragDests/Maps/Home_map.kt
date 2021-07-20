@@ -2,8 +2,12 @@
 
 package com.example.danmech.FragDests.Maps
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +16,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
@@ -24,19 +29,19 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -63,7 +68,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     private var CustomerPickUpLocation: LatLng? = null
     private var delivererAvailableRef: DatabaseReference? = null
     private var DriverLocationRef: DatabaseReference? = null
-    private var DriversRef: DatabaseReference? = null
+    private var DeliverersRef: DatabaseReference? = null
     private var radius: Int = 1
     private var delivererFound: Boolean? = false
     private var requestType: Boolean = false
@@ -142,14 +147,64 @@ class Home_map : Fragment(), OnMapReadyCallback,
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        logout(logout_customer_btn)
+        request_button.setOnClickListener {
+
+            if (requestType) {
+                requestType = false
+                geoQuery!!.removeAllListeners()
+                DriverLocationRef!!.removeEventListener((DriverLocationRefListner)!!)
+                if (delivererFound != null) {
+                    DeliverersRef = FirebaseDatabase.getInstance().reference
+                        .child("Users").child("Deliverers").child((delivererFoundID)!!)
+                        .child("CustomerRideID")
+                    DeliverersRef!!.removeValue()
+                    delivererFoundID = null
+                }
+                delivererFound = false
+                radius = 1
+                val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
+                val geoFire: GeoFire = GeoFire(CustomerDatabaseRef)
+                geoFire.removeLocation(customerId)
+                if (PickUpMarker != null) {
+                    PickUpMarker!!.remove()
+                }
+                if (DriverMarker != null) {
+                    DriverMarker!!.remove()
+                }
+                request_button.text = "Call a Water Truck"
+                relativeLayout?.setVisibility(View.GONE)
+            } else {
+                requestType = true
+                val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
+                val geoFire: GeoFire = GeoFire(CustomerDatabaseRef)
+                geoFire.setLocation(
+                    customerId,
+                    GeoLocation(LastLocation!!.latitude, LastLocation!!.longitude)
+                )
+                CustomerPickUpLocation =
+                    LatLng(LastLocation!!.latitude, LastLocation!!.longitude)
+                PickUpMarker = mMap!!.addMarker(
+                    MarkerOptions().position(CustomerPickUpLocation!!).title("Your Location")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.position))
+                )
+                request_button.text = "Kindly Wait as We get you a Water Truck..."
+                closestDeliverer
+            }
+
+        }
+        callingbtn!!.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
+            startActivity(intent)
+        }
+
+
 
         return v
     }
 
-    private val closestDeliiverer: Unit
+    private val closestDeliverer: Unit
         private get() {
-            val geoFire: GeoFire = GeoFire(DelivererAvailableRef)
+            val geoFire: GeoFire = GeoFire(delivererAvailableRef)
             geoQuery = geoFire.queryAtLocation(
                 GeoLocation(
                     CustomerPickUpLocation!!.latitude,
@@ -167,26 +222,26 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 
                         //we tell driver which customer he is going to have
-                        DriversRef = FirebaseDatabase.getInstance().getReference().child("Users")
-                            .child("Drivers").child(
+                        DeliverersRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                            .child("deliverers").child(
                                 delivererFoundID!!
                             )
-                        val driversMap = HashMap<String?, String?>()
-                        driversMap["CustomerRideID"] = customerID
-                        DriversRef!!.updateChildren(driversMap as Map<String, Any>)
+                        val deliverersMap = HashMap<String?, String?>()
+                        deliverersMap["CustomerRideID"] = customerID
+                        DeliverersRef!!.updateChildren(deliverersMap as Map<String, Any>)
 
                         //Show driver location on customerMapActivity
                         GettingDriverLocation()
-                        CallDelivererButton!!.setText("Looking for Mechanic Location...")
+                        CallDelivererButton!!.text = "Looking for Water Truck Location..."
                     }
                 }
 
-                public override fun onKeyExited(key: String) {}
-                public override fun onKeyMoved(key: String, location: GeoLocation) {}
-                public override fun onGeoQueryReady() {
+                override fun onKeyExited(key: String) {}
+                override fun onKeyMoved(key: String, location: GeoLocation) {}
+                override fun onGeoQueryReady() {
                     if (!delivererFound!!) {
                         radius += 1
-                        closetDriverCab
+                        closestDeliverer
                     }
                 }
 
@@ -200,6 +255,54 @@ class Home_map : Fragment(), OnMapReadyCallback,
             requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
 
         return sharedPreferences.getBoolean("Old", false)
+    }
+
+
+    //and then we get to the driver location - to tell customer where is the driver
+    private fun GettingDriverLocation() {
+        DriverLocationRefListner = DriverLocationRef!!.child((delivererFoundID)!!).child("l")
+            .addValueEventListener(object : ValueEventListener {
+                public override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists() && requestType) {
+                        val driverLocationMap: List<Any?>? = dataSnapshot.value as List<Any?>?
+                        var LocationLat: Double = 0.0
+                        var LocationLng: Double = 0.0
+                        request_button.text = "Water Truck  Found"
+                        relativeLayout!!.visibility = View.VISIBLE
+                        assignedDriverInformation
+                        if (driverLocationMap!!.get(0) != null) {
+                            LocationLat = driverLocationMap[0].toString().toDouble()
+                        }
+                        if (driverLocationMap.get(1) != null) {
+                            LocationLng = driverLocationMap[1].toString().toDouble()
+                        }
+
+                        //adding marker - to pointing where driver is - using this lat lng
+                        val DriverLatLng: LatLng = LatLng(LocationLat, LocationLng)
+                        if (DriverMarker != null) {
+                            DriverMarker!!.remove()
+                        }
+                        val location1: Location = Location("")
+                        location1.latitude = CustomerPickUpLocation!!.latitude
+                        location1.longitude = CustomerPickUpLocation!!.longitude
+                        val location2: Location = Location("")
+                        location2.latitude = DriverLatLng.latitude
+                        location2.longitude = DriverLatLng.longitude
+                        val Distance: Float = location1.distanceTo(location2)
+                        if (Distance < 90) {
+                            request_button.text = "Water Truck  has Reached"
+                        } else {
+                            request_button.text = "Water Truck is  $Distance.toString() away"
+                        }
+                        DriverMarker = mMap!!.addMarker(
+                            MarkerOptions().position(DriverLatLng).title("your Water Truck is here")
+                                .icon(BitmapDescriptorFactory.defaultMarker())
+                        )
+                    }
+                }
+
+                public override fun onCancelled(databaseError: DatabaseError) {}
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -216,10 +319,46 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     }
 
-    override fun onConnected(p0: Bundle?) {
-        TODO("Not yet implemented")
+    public override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        // now let set user location enable
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        buildGoogleApiClient()
+        mMap!!.isMyLocationEnabled = true
     }
 
+    public override fun onConnected(bundle: Bundle?) {
+        locationRequest = LocationRequest()
+        locationRequest!!.interval = 1000
+        locationRequest!!.fastestInterval = 1000
+        locationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //
+            return
+        }
+        //it will handle the refreshment of the location
+        //if we dont call it we will get location only once
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+            googleApiClient,
+            locationRequest,
+            this
+        )
+    }
 
     public override fun onConnectionSuspended(i: Int) {}
     public override fun onConnectionFailed(connectionResult: ConnectionResult) {}
@@ -231,7 +370,46 @@ class Home_map : Fragment(), OnMapReadyCallback,
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
-        TODO("Not yet implemented")
+    //create this method -- for useing apis
+    @Synchronized
+    protected fun buildGoogleApiClient() {
+        googleApiClient = GoogleApiClient.Builder(requireActivity())
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API)
+            .build()
+        googleApiClient?.connect()
     }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+
+
+    private val assignedDriverInformation: Unit
+        private get() {
+            val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
+                .child("Users").child("Deliverers").child((delivererFoundID)!!)
+            reference.addValueEventListener(object : ValueEventListener {
+                public override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
+                        val name: String = dataSnapshot.child("name").value.toString()
+                        val phone = dataSnapshot.child("phone").value.toString()
+                        val car: String = dataSnapshot.child("car").value.toString()
+                        txtName!!.text = name
+                        txtPhone!!.text = phone
+                        txtCarName!!.text = car
+                        if (dataSnapshot.hasChild("image")) {
+                            val image: String = dataSnapshot.child("image").value.toString()
+                            Picasso.get().load(image).into(profilePic)
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+        }
 }
+
+
