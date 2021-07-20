@@ -99,21 +99,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
     }
 
 
-//    private val callback = OnMapReadyCallback { googleMap ->
-//        /**
-//         * Manipulates the map once available.
-//         * This callback is triggered when the map is ready to be used.
-//         * This is where we can add markers or lines, add listeners or move the camera.
-//         * In this case, we just add a marker near Sydney, Australia.
-//         * If Google Play services is not installed on the device, the user will be prompted to
-//         * install it inside the SupportMapFragment. This method will only be triggered once the
-//         * user has installed Google Play services and returned to the app.
-//         */
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -129,7 +114,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             FirebaseDatabase.getInstance().reference.child("Customer Requests")
         delivererAvailableRef =
             FirebaseDatabase.getInstance().reference.child("Deliverers Available")
-        DriverLocationRef = FirebaseDatabase.getInstance().reference.child("Deliverer Working")
+        DriverLocationRef = FirebaseDatabase.getInstance().reference.child("Deliverers Working")
 
 //      initializing a share pref to use when checking if the user id old or not
         moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
@@ -173,7 +158,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 if (DriverMarker != null) {
                     DriverMarker!!.remove()
                 }
-                request_button.text = "Call a Water Truck"
+                request_button.text = "Call for a Water Truck"
                 relativeLayout?.setVisibility(View.GONE)
             } else {
                 requestType = true
@@ -232,7 +217,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
             dialog.show()
 
 
-
         }
 
         return v
@@ -264,12 +248,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
                                 delivererFoundID!!
                             )
                         val deliverersMap = HashMap<String?, String?>()
-                        deliverersMap["CustomerRideID"] = customerID
+                        deliverersMap["CustomerID"] = customerID
                         DeliverersRef!!.updateChildren(deliverersMap as Map<String, Any>)
 
                         //Show driver location on customerMapActivity
                         GettingDriverLocation()
-                        CallDelivererButton!!.text = "Looking for Water Truck Location..."
+                        CallDelivererButton!!.text = "Looking for a Water Truck Around.."
                     }
                 }
 
@@ -328,12 +312,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
                         location2.longitude = DriverLatLng.longitude
                         val Distance: Float = location1.distanceTo(location2)
                         if (Distance < 90) {
-                            request_button.text = "Water Truck  has Reached"
+                            request_button.text = "Water Truck  has Arrived"
                         } else {
                             request_button.text = "Water Truck is  $Distance.toString() away"
                         }
                         DriverMarker = mMap!!.addMarker(
-                            MarkerOptions().position(DriverLatLng).title("your Water Truck is here")
+                            MarkerOptions().position(DriverLatLng).title("The Water Truck is here")
                                 .icon(BitmapDescriptorFactory.defaultMarker())
                         )
                     }
@@ -350,10 +334,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //    }
 
     private fun logout() {
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_home_map_to_authFragment)
-
-
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_home_map_to_authFragment)
     }
 
     public override fun onMapReady(googleMap: GoogleMap) {
@@ -379,7 +361,10 @@ class Home_map : Fragment(), OnMapReadyCallback,
         locationRequest!!.interval = 1000
         locationRequest!!.fastestInterval = 1000
         locationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -421,7 +406,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onStop() {
         super.onStop()
     }
-
 
 
     private val assignedDriverInformation: Unit
