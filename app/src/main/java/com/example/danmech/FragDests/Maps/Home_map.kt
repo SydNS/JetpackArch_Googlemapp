@@ -11,27 +11,70 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
 import com.example.danmech.Sharedprefs.Moyosharedprefs
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
+import com.firebase.geofire.GeoQuery
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
+import com.google.android.gms.location.LocationRequest
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import de.hdodenhof.circleimageview.CircleImageView
+
 
 class Home_map : Fragment(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
     lateinit var logout_customer_btn: Button
     private lateinit var moyosharedprefs: Moyosharedprefs
+
+
+    private var mMap: GoogleMap? = null
+    var googleApiClient: GoogleApiClient? = null
+    var LastLocation: Location? = null
+    var locationRequest: LocationRequest? = null
+    private var Logout: Button? = null
+    private var SettingsButton: Button? = null
+    private var CallDelivererButton: Button? = null
+    private var callingbtn: ImageView? = null
+    private var mAuth: FirebaseAuth? = null
+    private var currentUser: FirebaseUser? = null
+    private var CustomerDatabaseRef: DatabaseReference? = null
+    private var CustomerPickUpLocation: LatLng? = null
+    private var DelivererAvailableRef: DatabaseReference? = null
+    private var DriverLocationRef: DatabaseReference? = null
+    private var DriversRef: DatabaseReference? = null
+    private var radius: Int = 1
+    private var delivererFound: Boolean? = false
+    private var requestType: Boolean = false
+    private var delivererFoundID: String? = null
+    private var customerID: String? = null
+    var DriverMarker: Marker? = null
+    var PickUpMarker: Marker? = null
+    var geoQuery: GeoQuery? = null
+    private var DriverLocationRefListner: ValueEventListener? = null
+    private var txtName: TextView? = null
+    private var txtPhone: TextView? = null
+    private var txtCarName: TextView? = null
+    private var profilePic: CircleImageView? = null
+    private var relativeLayout: RelativeLayout? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +111,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
     ): View? {
         val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
 
+//        initialising variable on the creation of the frag
+
+
+
+
         moyosharedprefs=Moyosharedprefs(requireActivity().applicationContext)
 //
 //        if(!isUserOld()){
@@ -85,7 +133,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     private val closestDeliiverer: Unit
         private get() {
-            val geoFire: GeoFire = GeoFire(DriverAvailableRef)
+            val geoFire: GeoFire = GeoFire(DelivererAvailableRef)
             geoQuery = geoFire.queryAtLocation(
                 GeoLocation(
                     CustomerPickUpLocation!!.latitude,
@@ -97,15 +145,15 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 public override fun onKeyEntered(key: String, location: GeoLocation) {
                     //anytime the driver is called this method will be called
                     //key=driverID and the location
-                    if (!driverFound!! && requestType) {
-                        driverFound = true
-                        driverFoundID = key
+                    if (!delivererFound!! && requestType) {
+                        delivererFound = true
+                        delivererFoundID = key
 
 
                         //we tell driver which customer he is going to have
                         DriversRef = FirebaseDatabase.getInstance().getReference().child("Users")
                             .child("Drivers").child(
-                                driverFoundID!!
+                                delivererFoundID!!
                             )
                         val driversMap = HashMap<String?, String?>()
                         driversMap["CustomerRideID"] = customerID
@@ -113,14 +161,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
                         //Show driver location on customerMapActivity
                         GettingDriverLocation()
-                        CallCabCarButton!!.setText("Looking for Mechanic Location...")
+                        CallDelivererButton!!.setText("Looking for Mechanic Location...")
                     }
                 }
 
                 public override fun onKeyExited(key: String) {}
                 public override fun onKeyMoved(key: String, location: GeoLocation) {}
                 public override fun onGeoQueryReady() {
-                    if (!driverFound!!) {
+                    if (!delivererFound!!) {
                         radius += 1
                         closetDriverCab
                     }
