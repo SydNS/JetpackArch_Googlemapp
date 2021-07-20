@@ -66,6 +66,7 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
+
                     android:id="@+id/login_emailaddress">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -76,6 +77,7 @@
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
+                        android:inputType="textEmailAddress"
                         android:textColor="@color/black"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
