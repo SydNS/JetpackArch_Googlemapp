@@ -62,11 +62,11 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Username"
+                    android:hint="Email Address"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    android:id="@+id/login_username">
+                    android:id="@+id/login_emailaddress">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
