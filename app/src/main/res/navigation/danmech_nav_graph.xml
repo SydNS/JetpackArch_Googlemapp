@@ -4,18 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/home_map">
     <fragment
-        android:id="@+id/splashscreen"
-        android:name="com.example.danmech.FragDests.Splashscreen"
-        android:label="fragment_splashscreen"
-        tools:layout="@layout/fragment_splashscreen" >
-        <action
-            android:id="@+id/action_splashscreen_to_walkThrough"
-            app:destination="@id/walkThrough" />
-        <action
-            android:id="@+id/action_splashscreen_to_authFragment"
-            app:destination="@id/authFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/walkThrough"
         android:name="com.example.danmech.FragDests.WalkThrough"
         android:label="fragment_walk_through"
@@ -50,5 +38,13 @@
         <action
             android:id="@+id/action_home_map_to_walkThrough"
             app:destination="@id/walkThrough" />
+        <action
+            android:id="@+id/action_home_map_to_usertypeselection"
+            app:destination="@id/usertypeselection" />
     </fragment>
+    <fragment
+        android:id="@+id/usertypeselection"
+        android:name="com.example.danmech.FragDests.Maps.DeliverersMap"
+        android:label="fragment_usertypeselection"
+        tools:layout="@layout/fragment_deliverers_map" />
 </navigation>
