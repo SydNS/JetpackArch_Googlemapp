@@ -200,9 +200,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
             startActivity(intent)
         }
 
-
-
-
         return v
     }
 
