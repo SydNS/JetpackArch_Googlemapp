@@ -1,8 +1,9 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "UNCHECKED_CAST")
 
 package com.example.danmech.FragDests.Maps
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
@@ -49,15 +49,15 @@ class Home_map : Fragment(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
     lateinit var logout_customer_btn: Button
-    lateinit var details: Button
+    private lateinit var details: Button
     lateinit var request_button: Button
     private lateinit var moyosharedprefs: Moyosharedprefs
 
 
     private var mMap: GoogleMap? = null
-    var googleApiClient: GoogleApiClient? = null
-    var LastLocation: Location? = null
-    var locationRequest: LocationRequest? = null
+    private var googleApiClient: GoogleApiClient? = null
+    private var LastLocation: Location? = null
+    private var locationRequest: LocationRequest? = null
     private var Logout: Button? = null
     private var SettingsButton: Button? = null
     private var CallDelivererButton: Button? = null
@@ -192,6 +192,9 @@ class Home_map : Fragment(), OnMapReadyCallback,
             }
 
         }
+        logout_customer_btn.setOnClickListener {
+            logout()
+        }
         callingbtn!!.setOnClickListener {
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
             startActivity(intent)
@@ -199,11 +202,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 
 
+
         return v
     }
 
     private val closestDeliverer: Unit
-        private get() {
+        get() {
             val geoFire: GeoFire = GeoFire(delivererAvailableRef)
             geoQuery = geoFire.queryAtLocation(
                 GeoLocation(
@@ -213,6 +217,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             )
             geoQuery?.removeAllListeners()
             geoQuery?.addGeoQueryEventListener(object : GeoQueryEventListener {
+                @SuppressLint("SetTextI18n")
                 public override fun onKeyEntered(key: String, location: GeoLocation) {
                     //anytime the driver is called this method will be called
                     //key=driverID and the location
@@ -262,6 +267,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     private fun GettingDriverLocation() {
         DriverLocationRefListner = DriverLocationRef!!.child((delivererFoundID)!!).child("l")
             .addValueEventListener(object : ValueEventListener {
+                @SuppressLint("SetTextI18n")
                 public override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && requestType) {
                         val driverLocationMap: List<Any?>? = dataSnapshot.value as List<Any?>?
@@ -311,11 +317,10 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //        mapFragment?.getMapAsync(callback)
 //    }
 
-    private fun logout(v: Button) {
-        v.setOnClickListener {
+    private fun logout() {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_home_map_to_authFragment)
-        }
+
 
     }
 
