@@ -128,11 +128,18 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 //      initializing a share pref to use when checking if the user id old or not
         moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
-
-
         logout_customer_btn = v.findViewById(R.id.logout_customer_btn)
         details = v.findViewById(R.id.details)
         request_button = v.findViewById(R.id.request_button)
+
+        txtName = v.findViewById(R.id.name_driver)
+        txtPhone = v.findViewById(R.id.phone_driver)
+        txtCarName = v.findViewById(R.id.deliverername)
+        profilePic = v.findViewById(R.id.profile_image_driver)
+        relativeLayout = v.findViewById(R.id.rel1)
+        callingbtn = v.findViewById(R.id.callingbtn)
+
+
         logout(logout_customer_btn)
 
         return v
