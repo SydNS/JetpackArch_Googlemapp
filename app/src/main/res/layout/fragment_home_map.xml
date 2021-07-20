@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/call_a_car_button"
+        android:layout_above="@+id/request_button"
         android:layout_margin="10dp"
         android:visibility="gone">
 
@@ -93,7 +93,7 @@
 
 
     <Button
-        android:id="@+id/call_a_car_button"
+        android:id="@+id/request_button"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -132,6 +132,7 @@
         android:drawableStart="@drawable/back" />
 
     <Button
+        android:id="@+id/details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -150,6 +151,9 @@
         android:textColor="@android:color/background_light"
         android:textSize="15sp"
         android:textStyle="bold" />
+
+
+
 
 
 </RelativeLayout>
