@@ -102,6 +102,7 @@ class SignUp : Fragment() {
         signupbtn = v.findViewById(R.id.signupbtn)
         signupbtn.setOnClickListener {
 
+            val uname: String = username.editText?.text.toString().trim()
             val email: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
@@ -135,13 +136,11 @@ class SignUp : Fragment() {
                 ).show()
             }
             val user:String="Clients"
-            loadingBar!!.setTitle("Please wait :")
-            loadingBar!!.setMessage("While system is performing processing on your data...")
-            loadingBar!!.show()
-
+            loadingBar.setTitle("Please wait :")
+            loadingBar.setMessage("While system is performing processing on your data...")
+            loadingBar.show()
 
             createAccount(email,password,v,user,"User")
-
 
             layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
 
@@ -166,7 +165,7 @@ class SignUp : Fragment() {
         loadingBar!!.setMessage("While system is performing processing on your data...")
         loadingBar!!.show()
 
-        auth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener {
+        auth?.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
 
                 // Sign in success, update UI with the signed-in user's information
@@ -174,10 +173,8 @@ class SignUp : Fragment() {
                 val user = auth?.currentUser
 
                 currentUserId = user?.uid.toString()
-                customersDatabaseRef = firebasedatabase
-                    .reference
-                    .child("Users").child(childname).child(currentUserId!!)
-//                        .child("Users").child("Mechanics").child(currentUserId!!)
+                customersDatabaseRef = firebasedatabase.reference
+                    .child("Users").child(childname).child(currentUserId)
                 customersDatabaseRef!!.setValue(true)
 
                 Toast.makeText(activity, "Welcome $currentUserId to the $appuser-side", Toast.LENGTH_SHORT).show()
@@ -189,7 +186,7 @@ class SignUp : Fragment() {
                     .navigate(R.id.action_authFragment_to_home_map)
             } else {
                 // If sign in fails, display a message to the user.
-//                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+    //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
                 Toast.makeText(
                     activity,
                     "Error Occured ${it.exception?.message.toString()}",
