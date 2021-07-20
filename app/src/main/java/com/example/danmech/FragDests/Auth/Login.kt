@@ -9,12 +9,15 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class Login : Fragment() {
     lateinit var loginbtn:Button
     lateinit var logout_customer_btn:Button
+    lateinit var login_username:TextInputLayout
+    lateinit var login_password:TextInputLayout
 
 
     private var auth: FirebaseAuth? = null
@@ -32,6 +35,8 @@ class Login : Fragment() {
         auth= FirebaseAuth.getInstance()
         val v : View=inflater.inflate(R.layout.login,container,false)
         loginbtn=v.findViewById(R.id.loginbtn)
+        login_username=v.findViewById(R.id.login_username)
+        login_password=v.findViewById(R.id.login_password)
         login(loginbtn)
 
 
@@ -40,6 +45,8 @@ class Login : Fragment() {
 
     private fun login(v: Button) {
         v.setOnClickListener {
+
+
 
 
             NavHostFragment.findNavController(this)
