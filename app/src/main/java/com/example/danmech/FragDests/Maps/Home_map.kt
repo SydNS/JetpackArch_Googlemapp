@@ -209,7 +209,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnClose = view.findViewById<Button>(R.id.idBtnDismiss)
+            val btnClose = view.findViewById<Button>(R.id.close_button)
 
             // on below line we are adding on click listener
             // for our dismissing the dialog button.

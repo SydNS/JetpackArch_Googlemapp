@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/backgradient">
 
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/backgradient2">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -74,7 +79,8 @@
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:fontFamily="@font/caviardreams"
         />
 
 
@@ -83,6 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="your Name"
+        android:fontFamily="@font/caviardreams"
         android:layout_below="@+id/change_picture_btn"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -96,6 +103,7 @@
         android:layout_height="wrap_content"
         android:hint="your Phone Number"
         android:inputType="number"
+        android:fontFamily="@font/caviardreams"
         android:layout_below="@+id/name"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -112,9 +120,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="50dp"
         android:visibility="gone"
         android:autofillHints="todo" />
 
 
-
 </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>
