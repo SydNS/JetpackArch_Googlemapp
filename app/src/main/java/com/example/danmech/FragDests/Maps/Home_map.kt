@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
@@ -45,6 +46,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
     lateinit var logout_customer_btn: Button
+    lateinit var details: Button
+    lateinit var request_button: Button
     private lateinit var moyosharedprefs: Moyosharedprefs
 
 
@@ -82,7 +85,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(!isUserOld()){
+        if (!isUserOld()) {
             NavHostFragment
                 .findNavController(this)
                 .navigate(R.id.action_home_map_to_walkThrough)
@@ -111,35 +114,29 @@ class Home_map : Fragment(), OnMapReadyCallback,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v:View=inflater.inflate(R.layout.fragment_home_map, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_home_map, container, false)
 
 //        initialising variable on the creation of the frag
         mAuth = FirebaseAuth.getInstance()
-        currentUser = mAuth!!.getCurrentUser()
-        customerID = FirebaseAuth.getInstance().getCurrentUser()?.getUid()
+        currentUser = mAuth!!.currentUser
+        customerID = FirebaseAuth.getInstance().currentUser?.uid
         CustomerDatabaseRef =
-            FirebaseDatabase.getInstance().getReference().child("Customer Requests")
+            FirebaseDatabase.getInstance().reference.child("Customer Requests")
         delivererAvailableRef =
-            FirebaseDatabase.getInstance().getReference().child("Drivers Available")
-        DriverLocationRef = FirebaseDatabase.getInstance().getReference().child("Drivers Working")
+            FirebaseDatabase.getInstance().reference.child("Deliverers Available")
+        DriverLocationRef = FirebaseDatabase.getInstance().reference.child("Deliverer Working")
+
+//      initializing a share pref to use when checking if the user id old or not
+        moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
 
 
-
-
-        moyosharedprefs=Moyosharedprefs(requireActivity().applicationContext)
-//
-//        if(!isUserOld()){
-//            NavHostFragment
-//                .findNavController(this)
-//                .navigate(R.id.action_home_map_to_walkThrough)
-//        }
-
-
-        logout_customer_btn=v.findViewById(R.id.logout_customer_btn)
-
+        logout_customer_btn = v.findViewById(R.id.logout_customer_btn)
+        details = v.findViewById(R.id.details)
+        request_button = v.findViewById(R.id.request_button)
         logout(logout_customer_btn)
 
-        return v }
+        return v
+    }
 
     private val closestDeliiverer: Unit
         private get() {
@@ -189,11 +186,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
         }
 
 
-    fun isUserOld(): Boolean {
+    private fun isUserOld(): Boolean {
         val sharedPreferences =
             requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
 
-        return sharedPreferences.getBoolean("Old",false)
+        return sharedPreferences.getBoolean("Old", false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
