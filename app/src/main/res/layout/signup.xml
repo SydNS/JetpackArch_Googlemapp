@@ -99,7 +99,34 @@
                         android:fontFamily="@font/caviardreams"
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
+                        android:inputType="textEmailAddress"
                         android:paddingEnd="20dp"
+                        android:textColorHighlight="@android:color/holo_blue_dark"
+                        app:backgroundTint="@android:color/darker_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phone"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:endIconDrawable="@android:drawable/ic_dialog_email">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/caviardreams"
+                        android:paddingStart="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="20dp"
+                        android:inputType="phone"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
 
@@ -115,7 +142,8 @@
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:endIconDrawable="@android:drawable/ic_lock_lock">
+                    app:endIconDrawable="@android:drawable/ic_lock_lock"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -142,17 +170,18 @@
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     app:endIconDrawable="@android:drawable/ic_lock_lock"
-                    app:endIconTint="@color/white">
+                    app:endIconTint="@color/white"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/caviardreams"
+                        android:inputType="textPassword"
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
-                        android:inputType="textPassword"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
 
