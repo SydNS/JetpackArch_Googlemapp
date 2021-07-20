@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
@@ -209,7 +210,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnClose = view.findViewById<Button>(R.id.close_button)
+            val btnClose = view.findViewById<ImageView>(R.id.close_button)
 
             // on below line we are adding on click listener
             // for our dismissing the dialog button.
@@ -220,7 +221,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             }
             // below line is use to set cancelable to avoid
             // closing of dialog box when clicking on the screen.
-            dialog.setCancelable(false)
+            dialog.setCancelable(true)
 
             // on below line we are setting
             // content view to our view.
