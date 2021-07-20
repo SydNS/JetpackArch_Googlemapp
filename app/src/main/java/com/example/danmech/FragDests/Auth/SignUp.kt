@@ -98,20 +98,19 @@ class SignUp : Fragment() {
         useremailaddress = v.findViewById(R.id.emailaddress)
         userpassword = v.findViewById(R.id.password)
         userpassword2 = v.findViewById(R.id.password2)
-
-
-
         signupbtn = v.findViewById(R.id.signupbtn)
+
+//        setting the action onthe button
         signupbtn.setOnClickListener {
 
+//            gettting the user input on the click of the button
             val uname: String = username.editText?.text.toString().trim()
             val phone: String = phone.editText?.text.toString().trim()
             val email: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
 
-
-
+//          checking if the value from the email field is empty or  not
             if (TextUtils.isEmpty(email)) {
                 Toast.makeText(
                     requireActivity(),
@@ -120,7 +119,7 @@ class SignUp : Fragment() {
                 ).show()
 
             }
-
+//          checking if the value from the password field is empty or  not
             if (TextUtils.isEmpty(password)) {
                 userpassword.error = "Password is empty"
                 Toast.makeText(
@@ -129,7 +128,7 @@ class SignUp : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
+//          checking if the value from the password2 field is empty or  not
             if (password.length < 6) {
                 userpassword.error = "Password is short"
                 Toast.makeText(
@@ -138,17 +137,20 @@ class SignUp : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             val user:String="Clients"
             loadingBar.setTitle("Please wait :")
             loadingBar.setMessage("While system is performing processing on your data...")
             loadingBar.show()
 
+//            method creating the user withthe email & assword provided
             createAccount(email,password,v,"User")
 
-            layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
-
-            tabs = layoutwithtabs.findViewById(R.id.tabs)
-            tabs.getTabAt(0)
+//            these wonte be necessary becoz we are sendind the user directly to the home page skipping the
+//            and combining the signup and login
+//            layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
+//            tabs = layoutwithtabs.findViewById(R.id.tabs)
+//            tabs.getTabAt(0)
         }
 
         return v
@@ -161,27 +163,27 @@ class SignUp : Fragment() {
         appuser: String
     ) {
 
-        // [START create_user_with_email]
-
+        // loading bar that show the user some thing is happening
         loadingBar.setTitle("Please wait :")
         loadingBar.setMessage("While system is performing processing on your data...")
         loadingBar.show()
 
-        auth?.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+//        firebase code for signing up a user
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
 
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "createUserWithEmail:success")
-                val user = auth?.currentUser
+                val user = auth.currentUser
 
                 currentUserId = user?.uid.toString()
                 customersDatabaseRef = firebasedatabase.reference
                     .child("Users").child("Clients").child(currentUserId)
-                customersDatabaseRef!!.setValue(true)
+                customersDatabaseRef.setValue(true)
 
                 Toast.makeText(activity, "Welcome $currentUserId to the $appuser-side", Toast.LENGTH_SHORT).show()
 
-                loadingBar!!.dismiss()
+                loadingBar.dismiss()
 
 
                 Navigation.findNavController(view)
@@ -194,7 +196,7 @@ class SignUp : Fragment() {
                     "Error Occured ${it.exception?.message.toString()}",
                     Toast.LENGTH_SHORT
                 ).show()
-                loadingBar!!.dismiss()
+                loadingBar.dismiss()
 
             }
 
