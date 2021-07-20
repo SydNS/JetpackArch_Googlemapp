@@ -6,7 +6,7 @@
     app:cardElevation="5dp">
 
     <RelativeLayout
-        android:layout_width="399dp"
+        android:layout_width="match_parent"
         android:layout_height="436dp"
         android:background="@drawable/backgradient">
 
