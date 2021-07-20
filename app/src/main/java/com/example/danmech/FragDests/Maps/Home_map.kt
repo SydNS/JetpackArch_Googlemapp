@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -185,7 +186,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                     LatLng(LastLocation!!.latitude, LastLocation!!.longitude)
                 PickUpMarker = mMap!!.addMarker(
                     MarkerOptions().position(CustomerPickUpLocation!!).title("Your Location")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.position))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.psn))
                 )
                 request_button.text = "Kindly Wait as We get you a Water Truck..."
                 closestDeliverer
@@ -198,6 +199,39 @@ class Home_map : Fragment(), OnMapReadyCallback,
         callingbtn!!.setOnClickListener {
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
             startActivity(intent)
+        }
+        details!!.setOnClickListener {
+            // on below line we are creating a new bottom sheet dialog.
+            val dialog = BottomSheetDialog(requireActivity())
+
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+
+            // on below line we are creating a variable for our button
+            // which we are using to dismiss our dialog.
+            val btnClose = view.findViewById<Button>(R.id.idBtnDismiss)
+
+            // on below line we are adding on click listener
+            // for our dismissing the dialog button.
+            btnClose.setOnClickListener {
+                // on below line we are calling a dismiss
+                // method to close our dialog.
+                dialog.dismiss()
+            }
+            // below line is use to set cancelable to avoid
+            // closing of dialog box when clicking on the screen.
+            dialog.setCancelable(false)
+
+            // on below line we are setting
+            // content view to our view.
+            dialog.setContentView(view)
+
+            // on below line we are calling
+            // a show method to display a dialog.
+            dialog.show()
+
+
+
         }
 
         return v
