@@ -4,9 +4,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="slogan">The form is mechanic when on any given material we impress a predetermined form.</string>
     <string name="already_have_an_account">Already have an account ?</string>
-    <string name="driver_name">Driver Name</string>
-    <string name="driver_phone_number">Driver Phone Number</string>
-    <string name="driver_car_name">Driver Car Name</string>
+    <string name="driver_name">Deliverers Name</string>
+    <string name="driver_phone_number">Deliverers Phone Number</string>
+    <string name="driver_car_name">Deliverers Name</string>
     <string name="details">Details</string>
     <string name="logout">Logout</string>
     <string name="call_a_watertank">Call Water Truck</string>
