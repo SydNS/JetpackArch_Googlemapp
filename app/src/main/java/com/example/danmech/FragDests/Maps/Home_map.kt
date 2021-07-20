@@ -4,8 +4,6 @@ package com.example.danmech.FragDests.Maps
 
 import android.content.Context
 import android.location.Location
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
 import com.example.danmech.Sharedprefs.Moyosharedprefs
@@ -25,7 +24,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -131,7 +129,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
         logout_customer_btn = v.findViewById(R.id.logout_customer_btn)
         details = v.findViewById(R.id.details)
         request_button = v.findViewById(R.id.request_button)
-
         txtName = v.findViewById(R.id.name_driver)
         txtPhone = v.findViewById(R.id.phone_driver)
         txtCarName = v.findViewById(R.id.deliverername)
@@ -139,6 +136,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
         relativeLayout = v.findViewById(R.id.rel1)
         callingbtn = v.findViewById(R.id.callingbtn)
 
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
 
         logout(logout_customer_btn)
 
