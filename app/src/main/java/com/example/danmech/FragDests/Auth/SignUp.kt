@@ -41,6 +41,7 @@ class SignUp : Fragment() {
     lateinit var useremailaddress: TextInputLayout
     lateinit var userpassword: TextInputLayout
     lateinit var userpassword2: TextInputLayout
+    lateinit var phone: TextInputLayout
 
     //firebase variables
     private lateinit var auth: FirebaseAuth
@@ -93,6 +94,7 @@ class SignUp : Fragment() {
 
 //        hooking views to e used in the class
         username = v.findViewById(R.id.username)
+        phone = v.findViewById(R.id.phone)
         useremailaddress = v.findViewById(R.id.emailaddress)
         userpassword = v.findViewById(R.id.password)
         userpassword2 = v.findViewById(R.id.password2)
@@ -103,6 +105,7 @@ class SignUp : Fragment() {
         signupbtn.setOnClickListener {
 
             val uname: String = username.editText?.text.toString().trim()
+            val phone: String = phone.editText?.text.toString().trim()
             val email: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
@@ -140,7 +143,7 @@ class SignUp : Fragment() {
             loadingBar.setMessage("While system is performing processing on your data...")
             loadingBar.show()
 
-            createAccount(email,password,v,user,"User")
+            createAccount(email,password,v,"User")
 
             layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
 
@@ -155,15 +158,14 @@ class SignUp : Fragment() {
         email: String,
         password: String,
         view: View,
-        childname: String,
         appuser: String
     ) {
 
         // [START create_user_with_email]
 
-        loadingBar!!.setTitle("Please wait :")
-        loadingBar!!.setMessage("While system is performing processing on your data...")
-        loadingBar!!.show()
+        loadingBar.setTitle("Please wait :")
+        loadingBar.setMessage("While system is performing processing on your data...")
+        loadingBar.show()
 
         auth?.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
@@ -174,7 +176,7 @@ class SignUp : Fragment() {
 
                 currentUserId = user?.uid.toString()
                 customersDatabaseRef = firebasedatabase.reference
-                    .child("Users").child(childname).child(currentUserId)
+                    .child("Users").child("Clients").child(currentUserId)
                 customersDatabaseRef!!.setValue(true)
 
                 Toast.makeText(activity, "Welcome $currentUserId to the $appuser-side", Toast.LENGTH_SHORT).show()
