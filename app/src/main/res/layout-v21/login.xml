@@ -30,6 +30,7 @@
                 android:textStyle="normal" />
 
             <TextView
+                android:id="@+id/loginbanner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,6 +38,7 @@
                 android:fontFamily="@font/caviardreams"
                 android:letterSpacing="0.0265"
                 android:text="Login to continue your account"
+                android:gravity="center"
                 android:textColor="#6e6e73"
                 android:textSize="17sp" />
 

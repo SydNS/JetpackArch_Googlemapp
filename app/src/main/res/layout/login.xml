@@ -30,6 +30,7 @@
                 android:textStyle="normal" />
 
             <TextView
+                android:id="@+id/loginbanner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,6 +38,7 @@
                 android:fontFamily="@font/caviardreams"
                 android:letterSpacing="0.0265"
                 android:text="Login to continue your account"
+                android:gravity="center"
                 android:textColor="#6e6e73"
                 android:textSize="17sp" />
 
@@ -62,10 +64,12 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Username"
+                    android:hint="Email Address"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="1dp">
+                    app:boxStrokeWidth="1dp"
+
+                    android:id="@+id/login_emailaddress">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -75,6 +79,7 @@
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
+                        android:inputType="textEmailAddress"
                         android:textColor="@color/black"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
@@ -90,7 +95,8 @@
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="1dp">
+                    app:boxStrokeWidth="1dp"
+                    android:id="@+id/login_password">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
