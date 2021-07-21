@@ -40,11 +40,30 @@
             app:destination="@id/walkThrough" />
         <action
             android:id="@+id/action_home_map_to_usertypeselection"
-            app:destination="@id/usertypeselection" />
+            app:destination="@id/deliverersmap" />
+        <action
+            android:id="@+id/action_home_map_to_messagingFragment"
+            app:destination="@id/messagingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/usertypeselection"
+        android:id="@+id/deliverersmap"
         android:name="com.example.danmech.FragDests.Maps.DeliverersMap"
         android:label="fragment_usertypeselection"
-        tools:layout="@layout/fragment_deliverers_map" />
+        tools:layout="@layout/fragment_deliverers_map" >
+        <action
+            android:id="@+id/action_deliverersmap_to_messagingFragment"
+            app:destination="@id/messagingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagingFragment"
+        android:name="com.example.danmech.MessagingFragment"
+        android:label="fragment_messaging"
+        tools:layout="@layout/fragment_messaging" >
+        <action
+            android:id="@+id/action_messagingFragment_to_home_map"
+            app:destination="@id/home_map" />
+        <action
+            android:id="@+id/action_messagingFragment_to_deliverersmap"
+            app:destination="@id/deliverersmap" />
+    </fragment>
 </navigation>
