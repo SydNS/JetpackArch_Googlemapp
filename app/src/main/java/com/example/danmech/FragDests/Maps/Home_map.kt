@@ -90,6 +90,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val currentUser = mAuth?.currentUser
+
+        if(currentUser != null){
+            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
+        }
+
         if (!isUserOld()) {
             NavHostFragment
                 .findNavController(this)
@@ -99,12 +105,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
     }
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val v: View = inflater.inflate(R.layout.fragment_home_map, container, false)
+
 
 //        initialising variable on the creation of the frag
         mAuth = FirebaseAuth.getInstance()
@@ -159,7 +167,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                     DriverMarker!!.remove()
                 }
                 request_button.text = "Call for a Water Truck"
-                relativeLayout?.setVisibility(View.GONE)
+                relativeLayout?.visibility = View.GONE
             } else {
                 requestType = true
                 val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
@@ -222,6 +230,15 @@ class Home_map : Fragment(), OnMapReadyCallback,
         return v
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+//        val currentUser = mAuth?.currentUser
+//
+//        if(currentUser != null){
+//            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
+//        }
+    }
     private val closestDeliverer: Unit
         get() {
             val geoFire: GeoFire = GeoFire(delivererAvailableRef)
@@ -338,7 +355,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             .navigate(R.id.action_home_map_to_authFragment)
     }
 
-    public override fun onMapReady(googleMap: GoogleMap) {
+    override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
         // now let set user location enable
@@ -382,14 +399,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
         )
     }
 
-    public override fun onConnectionSuspended(i: Int) {}
-    public override fun onConnectionFailed(connectionResult: ConnectionResult) {}
-    public override fun onLocationChanged(location: Location) {
+    override fun onConnectionSuspended(i: Int) {}
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {}
+    override fun onLocationChanged(location: Location) {
         //getting the updated location
         LastLocation = location
         val latLng: LatLng = LatLng(location.latitude, location.longitude)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
     }
 
     //create this method -- for useing apis
@@ -401,10 +418,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
             .addApi(LocationServices.API)
             .build()
         googleApiClient?.connect()
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
 
