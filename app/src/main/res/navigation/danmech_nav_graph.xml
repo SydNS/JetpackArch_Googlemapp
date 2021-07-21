@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/messagingFragment"
-        android:name="com.example.danmech.MessagingFragment"
+        android:name="com.example.danmech.FragDests.Messaging.MessagingFragment"
         android:label="fragment_messaging"
         tools:layout="@layout/fragment_messaging" >
         <action
