@@ -160,17 +160,17 @@ class SignUp : Fragment() {
                     userpassword.isErrorEnabled = true
                     userpassword.error = "Please Kindly Enter An 8 Character Long Password"
                 }
-//                password2.isEmpty() -> {
-//                    signupbanner.text = "You're required to Confirm Your Password"
-//                    userpassword2.isErrorEnabled = true
-//                    userpassword2.error = "Please Kindly Confirm your Password"
-//                }
+                password2.isEmpty() -> {
+                    signupbanner.text = "You're required to Confirm Your Password"
+                    userpassword2.isErrorEnabled = true
+                    userpassword2.error = "Please Kindly Confirm your Password"
+                }
 //
-//                password != password2 -> {
-//                    signupbanner.text = "You're required to Have Matching Passwords"
-//                    userpassword2.isErrorEnabled = true
-//                    userpassword2.error = "Please Kindly Enter Your Matching Passwords"
-//                }
+                password != password2 -> {
+                    signupbanner.text = "You're required to Have Matching Passwords"
+                    userpassword2.isErrorEnabled = true
+                    userpassword2.error = "Please Kindly Enter Your Matching Passwords"
+                }
 //
 //                uemail.isNotEmpty() and password.isNotEmpty() -> {
 //                    signupbanner.text = "Thank you"
@@ -233,6 +233,7 @@ class SignUp : Fragment() {
             } else {
                 // If sign in fails, display a message to the user.
                 //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                signupbanner.text="${it.exception?.message.toString()}"
                 Toast.makeText(
                     activity,
                     "Error Occured ${it.exception?.message.toString()}",
