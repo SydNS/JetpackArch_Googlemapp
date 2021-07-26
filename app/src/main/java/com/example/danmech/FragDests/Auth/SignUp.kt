@@ -128,58 +128,54 @@ class SignUp : Fragment() {
             //checking if the value from the email field is empty or  not
             when {
                 uname.isEmpty() -> {
-                    signupbanner.text = "You're required to fill your Username"
+                    signupbanner.text = getString(R.string.userameneeded)
                     username.isErrorEnabled = true
-                    username.error = "Please Kindly Enter Your Username"
+                    username.error = getString(R.string.enteruserameneeded)
                 }
 
                 uemail.isEmpty() -> {
-                    signupbanner.text = "You're required to fill your Email Address"
+                    signupbanner.text = getString(R.string.emailrequired)
                     useremailaddress.isErrorEnabled = true
-                    useremailaddress.error = "Please Kindly Enter Your Email Address"
+                    useremailaddress.error = getString(R.string.enteremailaddress)
                 }
                 phone.isEmpty() -> {
-                    signupbanner.text = "You're required to fill your Phone Number"
+                    signupbanner.text = getString(R.string.enterphonenumber)
                     userphone.isErrorEnabled = true
-                    userphone.error = "Please Kindly Enter Your Phone Number"
+                    userphone.error = getString(R.string.enterphonenumberkindly)
                 }
                 phone.isNotEmpty() && phone.length != 10 -> {
-                    signupbanner.text = "You're required to Enter a 10 Digit Phone Number"
+                    signupbanner.text = getString(R.string.enter10digitsphonenumber)
                     userphone.isErrorEnabled = true
-                    userphone.error = "Please Kindly Enter a 10 Digit Phone Number"
+                    userphone.error = getString(R.string.enter10digitnumbers)
                 }
 
                 password.isEmpty() -> {
                     signupbanner.text =
-                        "You're required to Have a Password That You'll confirm next"
+                        getString(R.string.confirmpassword)
                     userpassword.isErrorEnabled = true
-                    userpassword.error = "Please Kindly Enter Your Password"
+                    userpassword.error = getString(R.string.kindlyenterpassword)
                 }
                 password.isNotEmpty() && password.length < 8 -> {
-                    signupbanner.text = "You're required a Password 8 Character long"
+                    signupbanner.text = getString(R.string.eightcharacterlong)
                     userpassword.isErrorEnabled = true
-                    userpassword.error = "Please Kindly Enter An 8 Character Long Password"
+                    userpassword.error = getString(R.string.eightcharacterlongkindly)
                 }
                 password2.isEmpty() -> {
-                    signupbanner.text = "You're required to Confirm Your Password"
+                    signupbanner.text = getString(R.string.confirmpassword2)
                     userpassword2.isErrorEnabled = true
-                    userpassword2.error = "Please Kindly Confirm your Password"
+                    userpassword2.error = getString(R.string.kindlyconfirm)
                 }
 //
                 password != password2 -> {
-                    signupbanner.text = "You're required to Have Matching Passwords"
+                    signupbanner.text = getString(R.string.matchingpasswordsneeded)
                     userpassword2.isErrorEnabled = true
-                    userpassword2.error = "Please Kindly Enter Your Matching Passwords"
+                    userpassword2.error = getString(R.string.matchingpassword2)
                 }
-//
-//                uemail.isNotEmpty() and password.isNotEmpty() -> {
-//                    signupbanner.text = "Thank you"
-//                }
 
                 else -> {
-                    signupbanner.text = "Thank you"
+                    signupbanner.text = getString(R.string.thanks)
 //            method creating the user with the email & password provided
-                    createAccount(uemail, password, v, "User")
+                    createAccount(uemail, password, v, getString(R.string.user))
 
                 }
             }
@@ -216,7 +212,7 @@ class SignUp : Fragment() {
 
                 currentUserId = user?.uid.toString()
                 customersDatabaseRef = firebasedatabase.reference
-                    .child("Users").child("Clients").child(currentUserId)
+                    .child(getString(R.string.users)).child(getString(R.string.clients)).child(currentUserId)
                 customersDatabaseRef.setValue(true)
 
                 Toast.makeText(
@@ -233,7 +229,7 @@ class SignUp : Fragment() {
             } else {
                 // If sign in fails, display a message to the user.
                 //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                signupbanner.text="${it.exception?.message.toString()}"
+                signupbanner.text= it.exception?.message.toString()
                 Toast.makeText(
                     activity,
                     "Error Occured ${it.exception?.message.toString()}",
