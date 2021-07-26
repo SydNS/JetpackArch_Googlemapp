@@ -106,6 +106,7 @@
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
+                        android:inputType="textPassword"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
 
@@ -130,7 +131,8 @@
                     android:text="Login"
                     android:textColor="#ffffff"
                     android:textSize="22sp"
-                    android:paddingLeft="40dp" />
+                    android:paddingLeft="40dp"
+                    android:drawableRight="@mipmap/logindrawable_foreground" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
