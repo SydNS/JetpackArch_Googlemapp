@@ -2,4 +2,21 @@
 <resources>
     <string name="call_a_watertank">Call Water Tank</string>
     <string name="welcome">Welcome</string>
+    <string name="userameneeded">You\'re required to fill your Username</string>
+    <string name="enteruserameneeded">Please Kindly Enter Your Username</string>
+    <string name="enterphonenumber">You\'re required to fill your Phone Number</string>
+    <string name="enterphonenumberkindly">Please Kindly Enter Your Phone Number</string>
+    <string name="enter10digitsphonenumber">You\'re required to Enter a 10 Digit Phone Number</string>
+    <string name="confirmpassword">You\'re required to Have a Password That You\'ll confirm next</string>
+    <string name="kindlyenterpassword">Please Kindly Enter Your Password</string>
+    <string name="eightcharacterlong">You\'re required a Password 8 Character long</string>
+    <string name="eightcharacterlongkindly">Please Kindly Enter An 8 Character Long Password</string>
+    <string name="confirmpassword2">You\'re required to Confirm Your Password</string>
+    <string name="kindlyconfirm">Please Kindly Confirm your Password</string>
+    <string name="matchingpasswordsneeded">You\'re required to Have Matching Passwords</string>
+    <string name="matchingpassword2">Please Kindly Enter Your Matching Passwords</string>
+    <string name="thanks">Thank you</string>
+    <string name="user">User</string>
+    <string name="clients">Clients</string>
+    <string name="users">Users</string>
 </resources>
