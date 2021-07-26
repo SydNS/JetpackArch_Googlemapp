@@ -11,10 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -35,13 +32,15 @@ class SignUp : Fragment() {
     lateinit var layoutwithtabs: RelativeLayout
     lateinit var tabs: TabLayout
     lateinit var signupbtn: Button
+    lateinit var signupbanner: TextView
+
 
     //declaring the views for grabbing the text from usrs
     lateinit var username: TextInputLayout
     lateinit var useremailaddress: TextInputLayout
     lateinit var userpassword: TextInputLayout
     lateinit var userpassword2: TextInputLayout
-    lateinit var phone: TextInputLayout
+    lateinit var userphone: TextInputLayout
 
     //firebase variables
     private lateinit var auth: FirebaseAuth
@@ -94,57 +93,96 @@ class SignUp : Fragment() {
 
 //        hooking views to e used in the class
         username = v.findViewById(R.id.username)
-        phone = v.findViewById(R.id.phone)
+        userphone = v.findViewById(R.id.phone)
         useremailaddress = v.findViewById(R.id.emailaddress)
         userpassword = v.findViewById(R.id.password)
         userpassword2 = v.findViewById(R.id.password2)
         signupbtn = v.findViewById(R.id.signupbtn)
+        signupbanner = v.findViewById(R.id.signupbanner)
 
-//        setting the action onthe button
+//        setting the action onclicking the button
         signupbtn.setOnClickListener {
+
+//            setting the views to showing no errors when the button is first clicked
+
+            useremailaddress.isErrorEnabled = false
+            useremailaddress.error = ""
+            username.isErrorEnabled = false
+            username.error = ""
+            userpassword.isErrorEnabled = false
+            userpassword.error = ""
+            userpassword2.isErrorEnabled = false
+            userpassword2.error = ""
+            userphone.isErrorEnabled = false
+            userphone.error = ""
 
 //            gettting the user input on the click of the button
             val uname: String = username.editText?.text.toString().trim()
-            val phone: String = phone.editText?.text.toString().trim()
-            val email: String = useremailaddress.editText?.text.toString().trim()
+            val phone: String = userphone.editText?.text.toString().trim()
+            val uemail: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
 
-//          checking if the value from the email field is empty or  not
-            if (TextUtils.isEmpty(email)) {
-                Toast.makeText(
-                    requireActivity(),
-                    "Enter email address!",
-                    Toast.LENGTH_SHORT
-                ).show()
+//         flow structure controlled here
 
-            }
-//          checking if the value from the password field is empty or  not
-            if (TextUtils.isEmpty(password)) {
-                userpassword.error = "Password is empty"
-                Toast.makeText(
-                    requireActivity(),
-                    "Enter password!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-//          checking if the value from the password2 field is empty or  not
-            if (password.length < 6) {
-                userpassword.error = "Password is short"
-                Toast.makeText(
-                    requireActivity(),
-                    "Password too short, enter minimum 6 characters!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            //checking if the value from the email field is empty or  not
+            when {
+                uname.isEmpty() -> {
+                    signupbanner.text = "You're required to fill your Username"
+                    username.isErrorEnabled = true
+                    username.error = "Please Kindly Enter Your Username"
+                }
 
-            val user:String="Clients"
-            loadingBar.setTitle("Please wait :")
-            loadingBar.setMessage("While system is performing processing on your data...")
-            loadingBar.show()
+                uemail.isEmpty() -> {
+                    signupbanner.text = "You're required to fill your Email Address"
+                    useremailaddress.isErrorEnabled = true
+                    useremailaddress.error = "Please Kindly Enter Your Email Address"
+                }
+                phone.isEmpty() -> {
+                    signupbanner.text = "You're required to fill your Phone Number"
+                    userphone.isErrorEnabled = true
+                    userphone.error = "Please Kindly Enter Your Phone Number"
+                }
+                phone.isNotEmpty() && phone.length != 10 -> {
+                    signupbanner.text = "You're required to Enter a 10 Digit Phone Number"
+                    userphone.isErrorEnabled = true
+                    userphone.error = "Please Kindly Enter a 10 Digit Phone Number"
+                }
 
-//            method creating the user withthe email & assword provided
-            createAccount(email,password,v,"User")
+                password.isEmpty() -> {
+                    signupbanner.text =
+                        "You're required to Have a Password That You'll confirm next"
+                    userpassword.isErrorEnabled = true
+                    userpassword.error = "Please Kindly Enter Your Password"
+                }
+                password.isNotEmpty() && password.length < 8 -> {
+                    signupbanner.text = "You're required a Password 8 Character long"
+                    userpassword.isErrorEnabled = true
+                    userpassword.error = "Please Kindly Enter An 8 Character Long Password"
+                }
+//                password2.isEmpty() -> {
+//                    signupbanner.text = "You're required to Confirm Your Password"
+//                    userpassword2.isErrorEnabled = true
+//                    userpassword2.error = "Please Kindly Confirm your Password"
+//                }
+//
+//                password != password2 -> {
+//                    signupbanner.text = "You're required to Have Matching Passwords"
+//                    userpassword2.isErrorEnabled = true
+//                    userpassword2.error = "Please Kindly Enter Your Matching Passwords"
+//                }
+//
+//                uemail.isNotEmpty() and password.isNotEmpty() -> {
+//                    signupbanner.text = "Thank you"
+//                }
+
+                else -> {
+                    signupbanner.text = "Thank you"
+//            method creating the user with the email & password provided
+                    createAccount(uemail, password, v, "User")
+
+                }
+            }
 
 //            these wonte be necessary becoz we are sendind the user directly to the home page skipping the
 //            and combining the signup and login
@@ -181,7 +219,11 @@ class SignUp : Fragment() {
                     .child("Users").child("Clients").child(currentUserId)
                 customersDatabaseRef.setValue(true)
 
-                Toast.makeText(activity, "Welcome $currentUserId to the $appuser-side", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    "Welcome $currentUserId to the $appuser-side",
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 loadingBar.dismiss()
 
@@ -190,7 +232,7 @@ class SignUp : Fragment() {
                     .navigate(R.id.action_authFragment_to_home_map)
             } else {
                 // If sign in fails, display a message to the user.
-    //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
                 Toast.makeText(
                     activity,
                     "Error Occured ${it.exception?.message.toString()}",
@@ -202,8 +244,6 @@ class SignUp : Fragment() {
 
         }
     }
-
-
 
 
 //        override fun onStart() {
@@ -218,9 +258,6 @@ class SignUp : Fragment() {
 //            super.onStop()
 //            firebaseAuthListner?.let { auth?.removeAuthStateListener(it) }
 //        }
-
-
-
 
 
 }
