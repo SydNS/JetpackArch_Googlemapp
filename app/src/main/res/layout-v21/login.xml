@@ -24,9 +24,9 @@
                 android:fontFamily="@font/caviardreams"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="20sp"
-                android:text="Sign In"
+                android:text="@string/sign_in"
                 android:textColor="#23203f"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textStyle="normal" />
 
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/caviardreams"
                 android:letterSpacing="0.0265"
-                android:text="Login to continue your account"
+                android:text="@string/login_to_continue_your_account"
                 android:gravity="center"
                 android:textColor="#6e6e73"
                 android:textSize="17sp" />
@@ -46,17 +46,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="29dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="29dp"
+                android:layout_marginEnd="20dp">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
-                    android:src="@drawable/h20removebgpreview" />
+                    android:src="@drawable/h20removebgpreview"
+                    android:contentDescription="@string/company_logo" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -64,11 +65,11 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Email Address"
+                    android:hint="@string/email_address"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-
+                    app:endIconDrawable="@android:drawable/ic_dialog_email"
                     android:id="@+id/login_emailaddress">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -91,12 +92,13 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    android:id="@+id/login_password">
+                    android:id="@+id/login_password"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -128,11 +130,10 @@
                     android:paddingStart="40dp"
                     android:paddingTop="10.5dp"
                     android:paddingBottom="10.5dp"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:textColor="#ffffff"
                     android:textSize="22sp"
-                    android:paddingLeft="40dp"
-                    android:drawableRight="@mipmap/logindrawable_foreground" />
+                    android:paddingLeft="40dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -148,7 +149,7 @@
                         android:fontFamily="@font/caviardreams"
                         android:gravity="center"
                         android:lineSpacingExtra="26sp"
-                        android:text="Dont have an Account?"
+                        android:text="@string/dont_have_an_account"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="normal"
@@ -157,16 +158,16 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="20.8dp"
                         android:layout_marginBottom="30.5dp"
                         android:fontFamily="@font/caviardreamsbolditalic"
                         android:gravity="center"
                         android:lineSpacingExtra="26sp"
-                        android:text="Register"
+                        android:text="@string/register"
                         android:textColor="#000000"
                         android:textSize="18sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:layout_marginStart="5dp" />
 
                 </LinearLayout>
 
