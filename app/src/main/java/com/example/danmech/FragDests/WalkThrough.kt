@@ -58,19 +58,19 @@ class WalkThrough : Fragment() {
         )
         val sloganList = listOf(
 
-            "You can simply serch us our location location on google maps",
-            "Our straightforward goal is to bring the best drinking water suppliers nearby your place.",
-            " Place your order and Get pure and hygienic water deliveries directly to your doorstep through our online water delivery app"
+            getString(string.firstwalkthroughdescription),
+            getString(string.secondwalkthroughdescription),
+            getString(string.thirdwalkthroughdescription)
         )
         val titlesList = listOf(
 
-            "Moyo Water ",
-            "Quenching your need for h20",
-            "Moyo App Got You Covered"
+            getString(string.firsttitle),
+            getString(string.secondwalkthroughtitle),
+            getString(string.thirdwalkthroughtitle)
 
         )
 
-        moyosharedprefs= Moyosharedprefs(requireActivity().applicationContext)
+        moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
 
         val adapter = ViewPagerAdapter(imagesList, titlesList, sloganList)
         viewPager2 = view.findViewById(R.id.viewPager)
@@ -85,14 +85,10 @@ class WalkThrough : Fragment() {
         welcome.setOnClickListener {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_walkThrough_to_authFragment)
-
-
-
         }
 
 
         managingViewPager(prev, next, welcome, dot1, dot2, dot3)
-
 
         return view
     }
@@ -157,8 +153,8 @@ class WalkThrough : Fragment() {
 //override method(s) what you need it
         })
 
-        welcome.setOnClickListener {MakeOld()
-
+        welcome.setOnClickListener {
+            MakeOld()
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_walkThrough_to_authFragment)
 
@@ -174,8 +170,6 @@ class WalkThrough : Fragment() {
         editor.putBoolean("Old", true)
         editor.apply()
     }
-
-
 
 
     companion object {
