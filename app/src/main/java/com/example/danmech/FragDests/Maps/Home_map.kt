@@ -13,10 +13,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -95,6 +92,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
         if(currentUser != null){
             NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
         }
+        Toast.makeText(requireActivity(),currentUser.toString(),Toast.LENGTH_LONG).show()
 
         if (!isUserOld()) {
             NavHostFragment
@@ -158,7 +156,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 delivererFound = false
                 radius = 1
                 val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
-                val geoFire: GeoFire = GeoFire(CustomerDatabaseRef)
+                val geoFire = GeoFire(CustomerDatabaseRef)
                 geoFire.removeLocation(customerId)
                 if (PickUpMarker != null) {
                     PickUpMarker!!.remove()
@@ -166,12 +164,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 if (DriverMarker != null) {
                     DriverMarker!!.remove()
                 }
-                request_button.text = "Call for a Water Truck"
+                request_button.text = getString(R.string.makeorder)
                 relativeLayout?.visibility = View.GONE
             } else {
                 requestType = true
                 val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
-                val geoFire: GeoFire = GeoFire(CustomerDatabaseRef)
+                val geoFire = GeoFire(CustomerDatabaseRef)
                 geoFire.setLocation(
                     customerId,
                     GeoLocation(LastLocation!!.latitude, LastLocation!!.longitude)
@@ -182,7 +180,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                     MarkerOptions().position(CustomerPickUpLocation!!).title("Your Location")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.psn))
                 )
-                request_button.text = "Kindly Wait as We get you a Water Truck..."
+                request_button.text = getString(R.string.waitingmessage)
                 closestDeliverer
             }
 
@@ -194,7 +192,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
             startActivity(intent)
         }
-        details!!.setOnClickListener {
+        details.setOnClickListener {
             // on below line we are creating a new bottom sheet dialog.
             val dialog = BottomSheetDialog(requireActivity())
 
@@ -241,7 +239,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     }
     private val closestDeliverer: Unit
         get() {
-            val geoFire: GeoFire = GeoFire(delivererAvailableRef)
+            val geoFire = GeoFire(delivererAvailableRef)
             geoQuery = geoFire.queryAtLocation(
                 GeoLocation(
                     CustomerPickUpLocation!!.latitude,
@@ -251,7 +249,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             geoQuery?.removeAllListeners()
             geoQuery?.addGeoQueryEventListener(object : GeoQueryEventListener {
                 @SuppressLint("SetTextI18n")
-                public override fun onKeyEntered(key: String, location: GeoLocation) {
+                override fun onKeyEntered(key: String, location: GeoLocation) {
                     //anytime the driver is called this method will be called
                     //key=driverID and the location
                     if (!delivererFound!! && requestType) {
@@ -301,11 +299,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
         DriverLocationRefListner = DriverLocationRef!!.child((delivererFoundID)!!).child("l")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("SetTextI18n")
-                public override fun onDataChange(dataSnapshot: DataSnapshot) {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && requestType) {
                         val driverLocationMap: List<Any?>? = dataSnapshot.value as List<Any?>?
-                        var LocationLat: Double = 0.0
-                        var LocationLng: Double = 0.0
+                        var LocationLat = 0.0
+                        var LocationLng = 0.0
                         request_button.text = "Water Truck  Found"
                         relativeLayout!!.visibility = View.VISIBLE
                         assignedDriverInformation
@@ -317,14 +315,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
                         }
 
                         //adding marker - to pointing where driver is - using this lat lng
-                        val DriverLatLng: LatLng = LatLng(LocationLat, LocationLng)
+                        val DriverLatLng = LatLng(LocationLat, LocationLng)
                         if (DriverMarker != null) {
                             DriverMarker!!.remove()
                         }
-                        val location1: Location = Location("")
+                        val location1 = Location("")
                         location1.latitude = CustomerPickUpLocation!!.latitude
                         location1.longitude = CustomerPickUpLocation!!.longitude
-                        val location2: Location = Location("")
+                        val location2 = Location("")
                         location2.latitude = DriverLatLng.latitude
                         location2.longitude = DriverLatLng.longitude
                         val Distance: Float = location1.distanceTo(location2)
@@ -340,7 +338,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                     }
                 }
 
-                public override fun onCancelled(databaseError: DatabaseError) {}
+                override fun onCancelled(databaseError: DatabaseError) {}
             })
     }
 
@@ -373,7 +371,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
         mMap!!.isMyLocationEnabled = true
     }
 
-    public override fun onConnected(bundle: Bundle?) {
+    override fun onConnected(bundle: Bundle?) {
         locationRequest = LocationRequest()
         locationRequest!!.interval = 1000
         locationRequest!!.fastestInterval = 1000
@@ -404,7 +402,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onLocationChanged(location: Location) {
         //getting the updated location
         LastLocation = location
-        val latLng: LatLng = LatLng(location.latitude, location.longitude)
+        val latLng = LatLng(location.latitude, location.longitude)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
     }
@@ -422,11 +420,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 
     private val assignedDriverInformation: Unit
-        private get() {
+        get() {
             val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
-                .child("Users").child("Deliverers").child((delivererFoundID)!!)
+                .child(getString(R.string.Users_node_in_raltimedb)).child(getString(R.string.deliverers_under_Users_node_in_raltimedb)).child((delivererFoundID)!!)
             reference.addValueEventListener(object : ValueEventListener {
-                public override fun onDataChange(dataSnapshot: DataSnapshot) {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
                         val name: String = dataSnapshot.child("name").value.toString()
                         val phone = dataSnapshot.child("phone").value.toString()
