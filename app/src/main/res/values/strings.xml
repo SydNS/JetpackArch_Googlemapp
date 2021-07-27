@@ -45,6 +45,13 @@
     <string name="loginallfields">You\'re required to fill all the fields</string>
     <string name="roles_deliverer">Deliverer</string>
     <string name="roles_client">Client</string>
+    <string name="radiobtnusertype">Choose User Type</string>
+    <string name="firstwalkthroughdescription">You can simply search us our location on google maps</string>
+    <string name="secondwalkthroughdescription">Our straightforward goal is to bring the best drinking water suppliers nearby your place.</string>
+    <string name="thirdwalkthroughdescription">\" Place your order and Get pure and hygienic water deliveries directly to your doorstep through our online water delivery app\"</string>
+    <string name="firsttitle">\"Moyo Water \"</string>
+    <string name="secondwalkthroughtitle">Quenching your need for h20</string>
+    <string name="thirdwalkthroughtitle">Moyo App Got You Covered</string>
 
 
 </resources>
