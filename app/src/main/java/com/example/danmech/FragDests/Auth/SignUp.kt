@@ -86,11 +86,8 @@ class SignUp : Fragment() {
     ): View? {
         val v: View = inflater.inflate(R.layout.signup, container, false)
 
-
         auth = FirebaseAuth.getInstance()
         firebasedatabase = FirebaseDatabase.getInstance()
-
-
 
         loadingBar = ProgressDialog(activity)
 
@@ -110,7 +107,7 @@ class SignUp : Fragment() {
 //        setting the action onclicking the button
         signupbtn.setOnClickListener {
 
-//       setting the views to showing no errors when the button is first clicked
+//          setting the views to showing no errors when the button is first clicked
             useremailaddress.isErrorEnabled = false
             useremailaddress.error = ""
             username.isErrorEnabled = false
@@ -118,11 +115,10 @@ class SignUp : Fragment() {
             userpassword.isErrorEnabled = false
             userpassword.error = ""
             userpassword2.isErrorEnabled = false
+
             userpassword2.error = ""
             userphone.isErrorEnabled = false
             userphone.error = ""
-            userradiobtn.error = ""
-            delivererradiobtn.error = ""
 
 //       gettting the user input on the click of the button
             val uname: String = username.editText?.text.toString().trim()
@@ -134,8 +130,7 @@ class SignUp : Fragment() {
 //           getting radiobutton values
             val selectedId: Int = userselection.checkedRadioButtonId
             radioUserButtonselected = v.findViewById(selectedId)
-            val userradiobtntxt: String = userradiobtn.text.toString().trim()
-            val delivererradiobtntxt: String = delivererradiobtn.text.toString().trim()
+            
             val userdecision: String = radioUserButtonselected.text.toString().trim()
 
 
@@ -187,7 +182,7 @@ class SignUp : Fragment() {
                     userpassword2.isErrorEnabled = true
                     userpassword2.error = getString(R.string.matchingpassword2)
                 }
-                userradiobtntxt.isEmpty() or delivererradiobtntxt.isEmpty() -> {
+                userdecision.isEmpty() -> {
                     userradiobtn.error = getString(R.string.radiobtnusertype)
                     delivererradiobtn.error = getString(R.string.radiobtnusertype)
                 }
@@ -265,7 +260,7 @@ class SignUp : Fragment() {
         }
     }
 
-    private fun storeDecidedUser(usertype:String) {
+    private fun storeDecidedUser(usertype: String) {
 
         val sharedPreferences =
             requireActivity().getSharedPreferences("UserType", Context.MODE_PRIVATE)
