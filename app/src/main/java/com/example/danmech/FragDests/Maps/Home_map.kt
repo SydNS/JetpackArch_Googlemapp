@@ -195,6 +195,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
         }
         logout_customer_btn.setOnClickListener {
             logout()
+
         }
         callingbtn!!.setOnClickListener {
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
@@ -239,9 +240,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onStart() {
         super.onStart()
 //         Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = mAuth?.currentUser
+        currentUser = mAuth?.currentUser
 
+        Toast.makeText(requireActivity(),"${currentUser?.email}",Toast.LENGTH_LONG).show()
         if(currentUser == null){
+
             NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
         }
     }
@@ -357,6 +360,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //    }
 
     private fun logout() {
+
+        mAuth?.signOut()
         NavHostFragment.findNavController(this)
             .navigate(R.id.action_home_map_to_authFragment)
     }
@@ -408,6 +413,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onConnectionSuspended(i: Int) {}
     override fun onConnectionFailed(connectionResult: ConnectionResult) {}
     override fun onLocationChanged(location: Location) {
+        onStart()
         //getting the updated location
         LastLocation = location
         val latLng = LatLng(location.latitude, location.longitude)
