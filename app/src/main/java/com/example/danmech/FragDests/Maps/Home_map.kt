@@ -87,18 +87,21 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val currentUser = mAuth?.currentUser
-
-        if(currentUser != null){
-            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
-        }
-        Toast.makeText(requireActivity(),currentUser.toString(),Toast.LENGTH_LONG).show()
-
+        mAuth = FirebaseAuth.getInstance()
+        mAuth?.currentUser
         if (!isUserOld()) {
             NavHostFragment
                 .findNavController(this)
                 .navigate(R.id.action_home_map_to_walkThrough)
+//        }else if(currentUser == null){
+//            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
+//        }
+//        Toast.makeText(requireActivity(),"Kindly Sign In",Toast.LENGTH_LONG).show()
+
+        }else{
+            onStart()
         }
+
 
     }
 
@@ -113,7 +116,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 
 //        initialising variable on the creation of the frag
-        mAuth = FirebaseAuth.getInstance()
+//        mAuth = FirebaseAuth.getInstance()
         currentUser = mAuth!!.currentUser
         customerID = FirebaseAuth.getInstance().currentUser?.uid
         CustomerDatabaseRef =
@@ -141,6 +144,11 @@ class Home_map : Fragment(), OnMapReadyCallback,
         mapFragment?.getMapAsync(this)
 
         request_button.setOnClickListener {
+
+//            disable the button aftter clicking it
+            it.isEnabled=false
+//            toasting the current user email to show that really a user is active
+            Toast.makeText(requireActivity(),"${mAuth?.currentUser?.email}",Toast.LENGTH_LONG).show()
 
             if (requestType) {
                 requestType = false
@@ -230,12 +238,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-//        val currentUser = mAuth?.currentUser
-//
-//        if(currentUser != null){
-//            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
-//        }
+//         Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = mAuth?.currentUser
+
+        if(currentUser == null){
+            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
+        }
     }
     private val closestDeliverer: Unit
         get() {
