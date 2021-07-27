@@ -98,9 +98,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/caviardreams"
+                        android:inputType="textEmailAddress"
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
-                        android:inputType="textEmailAddress"
                         android:paddingEnd="20dp"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
@@ -124,10 +124,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/caviardreams"
+                        android:inputType="phone"
                         android:paddingStart="20dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="20dp"
-                        android:inputType="phone"
                         android:textColorHighlight="@android:color/holo_blue_dark"
                         app:backgroundTint="@android:color/darker_gray" />
 
@@ -187,6 +187,39 @@
                         app:backgroundTint="@android:color/darker_gray" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+
+                <RadioGroup
+                    android:id="@+id/userselection"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:checked="false"
+                        android:text="@string/roles_client"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/caviardreams" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:checked="false"
+                        android:layout_marginLeft="92dp"
+                        android:text="@string/roles_deliverer"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/caviardreams"
+                        android:layout_weight="0.13" />
+
+
+                </RadioGroup>
 
 
                 <Button

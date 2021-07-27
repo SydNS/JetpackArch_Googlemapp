@@ -25,4 +25,6 @@
     <string name="loginfillinemail2">Please Kindly Enter Your Email</string>
     <string name="loginthankyou">Thank you</string>
     <string name="loginallfields">You\'re required to fill all the fields</string>
+    <string name="roles_deliverer">Deliverer</string>
+    <string name="roles_cient">Cient</string>
 </resources>
