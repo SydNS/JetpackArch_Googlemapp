@@ -17,11 +17,11 @@ class Moyosharedprefs(var context: Context) {
     }
 
     fun isUserOld(): String? {
-            val sharedPreferences =
-                context.getSharedPreferences("FirstTime", Context.MODE_PRIVATE)
-            val isOld = sharedPreferences.getString("Old",null)
-            return isOld
-        }
+        val sharedPreferences =
+            context.getSharedPreferences("FirstTime", Context.MODE_PRIVATE)
+        val isOld = sharedPreferences.getString("Old", null)
+        return isOld
+    }
 
 
     fun saveLoginDetails(email: String?, password: String?) {
@@ -48,5 +48,22 @@ class Moyosharedprefs(var context: Context) {
             val isPasswordEmpty = sharedPreferences.getString("Password", "")!!.isEmpty()
             return isEmailEmpty || isPasswordEmpty
         }
+
+
+    //    the type of user
+    fun UserType(usertype:String) {
+        val sharedPreferences =
+            context.getSharedPreferences("UserType", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("Type", usertype)
+        editor.apply()
+    }
+
+    fun WhatTypeOfUser(): String? {
+        val sharedPreferences =
+            context.getSharedPreferences("UserType", Context.MODE_PRIVATE)
+        val isOld = sharedPreferences.getString("Type", null)
+        return isOld
+    }
 
 }
