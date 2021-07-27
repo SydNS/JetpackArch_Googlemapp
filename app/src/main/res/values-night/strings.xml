@@ -1,12 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="call_a_watertank">Call Water Tank</string>
+    <string name="app_name">Moyo H2O</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="slogan">The form is mechanic when on any given material we impress a predetermined form.</string>
+    <string name="already_have_an_account">Already have an account ?</string>
+    <string name="driver_name">Deliverers Name</string>
+    <string name="driver_phone_number">Deliverers Phone Number</string>
+    <string name="driver_car_name">Deliverers Name</string>
+    <string name="details">Details</string>
+    <string name="logout">Logout</string>
+    <string name="call_a_watertank">Call Water Truck</string>
+    <string name="next">next</string>
     <string name="welcome">Welcome</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="customer_phone_number">Customer Phone Number</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer">Customer</string>
+    <string name="customerv_phone_number">Customerv Phone Number</string>
     <string name="userameneeded">You\'re required to fill your Username</string>
     <string name="enteruserameneeded">Please Kindly Enter Your Username</string>
+    <string name="emailrequired">You\'re required to fill your Email Address</string>
+    <string name="enteremailaddress">Please Kindly Enter Your Email Address</string>
     <string name="enterphonenumber">You\'re required to fill your Phone Number</string>
     <string name="enterphonenumberkindly">Please Kindly Enter Your Phone Number</string>
     <string name="enter10digitsphonenumber">You\'re required to Enter a 10 Digit Phone Number</string>
+    <string name="enter10digitnumbers">Please Kindly Enter a 10 Digit Phone Number</string>
     <string name="confirmpassword">You\'re required to Have a Password That You\'ll confirm next</string>
     <string name="kindlyenterpassword">Please Kindly Enter Your Password</string>
     <string name="eightcharacterlong">You\'re required a Password 8 Character long</string>
@@ -26,7 +44,7 @@
     <string name="loginthankyou">Thank you</string>
     <string name="loginallfields">You\'re required to fill all the fields</string>
     <string name="roles_deliverer">Deliverer</string>
-    <string name="roles_client">Cient</string>
+    <string name="roles_client">Client</string>
     <string name="radiobtnusertype">Choose User Type</string>
     <string name="firstwalkthroughdescription">You can simply search us our location on google maps</string>
     <string name="secondwalkthroughdescription">Our straightforward goal is to bring the best drinking water suppliers nearby your place.</string>
@@ -34,4 +52,16 @@
     <string name="firsttitle">\"Moyo Water \"</string>
     <string name="secondwalkthroughtitle">Quenching your need for h20</string>
     <string name="thirdwalkthroughtitle">Moyo App Got You Covered</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="register_to_create_an_account">Register to create an account</string>
+    <string name="company_logo">company logo</string>
+    <string name="username">Username</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <string name="login">Login</string>
+
+
 </resources>
