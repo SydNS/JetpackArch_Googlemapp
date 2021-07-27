@@ -24,6 +24,9 @@
             app:destination="@id/home_map"
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_authFragment_to_deliverersmap"
+            app:destination="@id/deliverersmap" />
     </fragment>
     <fragment
         android:id="@+id/home_map"
@@ -53,6 +56,9 @@
         <action
             android:id="@+id/action_deliverersmap_to_messagingFragment"
             app:destination="@id/messagingFragment" />
+        <action
+            android:id="@+id/action_deliverersmap_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
     <fragment
         android:id="@+id/messagingFragment"
