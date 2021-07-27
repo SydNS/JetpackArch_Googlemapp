@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.danmech.adapters
 
 import android.content.Context
