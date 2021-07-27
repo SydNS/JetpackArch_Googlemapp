@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
@@ -131,10 +132,14 @@ class Login : Fragment() {
     ) {
         auth.signInWithEmailAndPassword(uemail, upassd).addOnCompleteListener {
             if (it.isSuccessful) {
+                Toast.makeText(requireActivity(),"${auth.currentUser?.email}",Toast.LENGTH_LONG).show()
+
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_authFragment_to_home_map)
             } else {
                 loginbanner.text = it.exception?.message.toString()
+                Toast.makeText(requireActivity(), it.exception?.message.toString(),Toast.LENGTH_LONG).show()
+
                 Color.parseColor("#FF001E")
 
 
