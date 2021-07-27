@@ -123,7 +123,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
             LogOutUser()
         }
 
-        callingbtn!!.setOnClickListener {
+        callingbtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
             startActivity(intent)
 
