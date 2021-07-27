@@ -130,7 +130,7 @@ class SignUp : Fragment() {
 //           getting radiobutton values
             val selectedId: Int = userselection.checkedRadioButtonId
             radioUserButtonselected = v.findViewById(selectedId)
-            
+
             val userdecision: String = radioUserButtonselected.text.toString().trim()
 
 
