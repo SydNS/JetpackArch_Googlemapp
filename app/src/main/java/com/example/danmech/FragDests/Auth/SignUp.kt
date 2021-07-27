@@ -4,9 +4,8 @@ package com.example.danmech.FragDests.Auth
 
 import android.app.ProgressDialog
 import android.content.ContentValues.TAG
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,11 +19,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 
 class SignUp : Fragment() {
@@ -41,6 +37,13 @@ class SignUp : Fragment() {
     lateinit var userpassword: TextInputLayout
     lateinit var userpassword2: TextInputLayout
     lateinit var userphone: TextInputLayout
+
+    //declaring the radio views for grabbing the decision from usrs
+    lateinit var userselection: RadioGroup
+    lateinit var userradiobtn: RadioButton
+    lateinit var delivererradiobtn: RadioButton
+    lateinit var radioUserButtonselected: RadioButton
+
 
     //firebase variables
     private lateinit var auth: FirebaseAuth
@@ -99,12 +102,15 @@ class SignUp : Fragment() {
         userpassword2 = v.findViewById(R.id.password2)
         signupbtn = v.findViewById(R.id.signupbtn)
         signupbanner = v.findViewById(R.id.signupbanner)
+        userradiobtn = v.findViewById(R.id.radioButtonUser)
+        delivererradiobtn = v.findViewById(R.id.radioButtonDeliverer)
+        userselection = v.findViewById(R.id.userselection)
+
 
 //        setting the action onclicking the button
         signupbtn.setOnClickListener {
 
-//            setting the views to showing no errors when the button is first clicked
-
+//       setting the views to showing no errors when the button is first clicked
             useremailaddress.isErrorEnabled = false
             useremailaddress.error = ""
             username.isErrorEnabled = false
@@ -115,13 +121,23 @@ class SignUp : Fragment() {
             userpassword2.error = ""
             userphone.isErrorEnabled = false
             userphone.error = ""
+            userradiobtn.error = ""
+            delivererradiobtn.error = ""
 
-//            gettting the user input on the click of the button
+//       gettting the user input on the click of the button
             val uname: String = username.editText?.text.toString().trim()
             val phone: String = userphone.editText?.text.toString().trim()
             val uemail: String = useremailaddress.editText?.text.toString().trim()
             val password: String = userpassword.editText?.text.toString().trim()
             val password2: String = userpassword2.editText?.text.toString().trim()
+
+//           getting radiobutton values
+            val selectedId: Int = userselection.checkedRadioButtonId
+            radioUserButtonselected = v.findViewById(selectedId)
+            val userradiobtntxt: String = userradiobtn.text.toString().trim()
+            val delivererradiobtntxt: String = delivererradiobtn.text.toString().trim()
+            val userdecision: String = radioUserButtonselected.text.toString().trim()
+
 
 //         flow structure controlled here
 
@@ -171,11 +187,15 @@ class SignUp : Fragment() {
                     userpassword2.isErrorEnabled = true
                     userpassword2.error = getString(R.string.matchingpassword2)
                 }
+                userradiobtntxt.isEmpty() or delivererradiobtntxt.isEmpty() -> {
+                    userradiobtn.error = getString(R.string.radiobtnusertype)
+                    delivererradiobtn.error = getString(R.string.radiobtnusertype)
+                }
 
                 else -> {
                     signupbanner.text = getString(R.string.thanks)
 //            method creating the user with the email & password provided
-                    createAccount(uemail, password, v, getString(R.string.user))
+                    createAccount(uemail, password, v, userdecision)
 
                 }
             }
@@ -197,6 +217,8 @@ class SignUp : Fragment() {
         appuser: String
     ) {
 
+        storeDecidedUser(appuser)
+
         // loading bar that show the user some thing is happening
         loadingBar.setTitle("Please wait :")
         loadingBar.setMessage("While system is performing processing on your data...")
@@ -212,7 +234,8 @@ class SignUp : Fragment() {
 
                 currentUserId = user?.uid.toString()
                 customersDatabaseRef = firebasedatabase.reference
-                    .child(getString(R.string.users)).child(getString(R.string.clients)).child(currentUserId)
+                    .child(getString(R.string.users)).child(getString(R.string.clients))
+                    .child(currentUserId)
                 customersDatabaseRef.setValue(true)
 
                 Toast.makeText(
@@ -229,7 +252,7 @@ class SignUp : Fragment() {
             } else {
                 // If sign in fails, display a message to the user.
                 //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                signupbanner.text= it.exception?.message.toString()
+                signupbanner.text = it.exception?.message.toString()
                 Toast.makeText(
                     activity,
                     "Error Occured ${it.exception?.message.toString()}",
@@ -240,6 +263,16 @@ class SignUp : Fragment() {
             }
 
         }
+    }
+
+    private fun storeDecidedUser(usertype:String) {
+
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("UserType", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("Type", usertype)
+        editor.apply()
+
     }
 
 
