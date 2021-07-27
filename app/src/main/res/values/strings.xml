@@ -62,6 +62,10 @@
     <string name="confirm_password">Confirm Password</string>
 
     <string name="login">Login</string>
+    <string name="makeorder">Call for a Water Truck</string>
+    <string name="waitingmessage">Kindly Wait as We get you a Water Truck...</string>
+    <string name="Users_node_in_raltimedb">Users</string>
+    <string name="deliverers_under_Users_node_in_raltimedb">Deliverers</string>
 
 
 </resources>
