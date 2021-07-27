@@ -66,6 +66,13 @@
     <string name="waitingmessage">Kindly Wait as We get you a Water Truck...</string>
     <string name="Users_node_in_raltimedb">Users</string>
     <string name="deliverers_under_Users_node_in_raltimedb">Deliverers</string>
+    <string name="sign_in">Sign In</string>
+    <string name="login_to_continue_your_account">Login to continue your account</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="dont_have_an_account">Don\'t have an Account?</string>
+    <string name="register">Register</string>
 
 
 </resources>
