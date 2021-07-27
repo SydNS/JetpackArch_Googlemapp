@@ -88,39 +88,40 @@ class Login : Fragment() {
 //            setting the errors flags to non
             em.isErrorEnabled = false
             em.error = ""
-            pswd . isErrorEnabled = false
+            pswd.isErrorEnabled = false
             pswd.error = ""
 
             uemail = login_emailaddress.editText?.text.toString().trim()
             upassd = login_password.editText?.text.toString().trim()
 
             //checking if the value from the email field is empty or  not
-            if (uemail.isNotEmpty() or upassd.isNotEmpty()) when {
-                uemail.isNotEmpty() and upassd.isEmpty() -> {
-                    loginbanner.text = getString(R.string.loginfillinpassword)
+            when {
+                uemail.isEmpty() -> {
+                    loginbanner.text = getString(R.string.emailrequired)
                     em.isErrorEnabled = true
-                    em.error = getString(R.string.loginenterpassword)
+                    em.error = getString(R.string.enteremailaddress)
                 }
-                uemail.isNotEmpty() and upassd.isEmpty() -> {
-                    loginbanner.text = getString(R.string.loginfillinemail)
+                upassd.isEmpty() -> {
+                    loginbanner.text =
+                        getString(R.string.confirmpassword)
                     pswd.isErrorEnabled = true
-                    pswd.error = getString(R.string.loginfillinemail2)
+                    pswd.error = getString(R.string.kindlyenterpassword)
+                }
+                upassd.isNotEmpty() && upassd.length < 8 -> {
+                    loginbanner.text = getString(R.string.eightcharacterlong)
+                    pswd.isErrorEnabled = true
+                    pswd.error = getString(R.string.eightcharacterlongkindly)
+                }
 
-                }
-                uemail.isNotEmpty() and upassd.isNotEmpty() -> {
-                    loginbanner.text = getString(R.string.loginthankyou)
-                    loginusers(uemail, upassd, loginbanner)
-                }
                 else -> {
-                    loginbanner.text = getString(R.string.loginallfields)
-                    em.isErrorEnabled = true
-                    em.error = getString(R.string.loginfillinemail2)
-                    pswd.isErrorEnabled = true
-                    pswd.error =getString(R.string.loginenterpassword)
+                    loginbanner.text = getString(R.string.thanks)
+//            method logging in the user with the email & password provided
+                    loginusers(uemail, upassd, loginbanner)
 
 
                 }
             }
+
 
         }
     }
@@ -132,13 +133,18 @@ class Login : Fragment() {
     ) {
         auth.signInWithEmailAndPassword(uemail, upassd).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(requireActivity(),"${auth.currentUser?.email}",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "${auth.currentUser?.email}", Toast.LENGTH_LONG)
+                    .show()
 
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_authFragment_to_home_map)
             } else {
                 loginbanner.text = it.exception?.message.toString()
-                Toast.makeText(requireActivity(), it.exception?.message.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireActivity(),
+                    it.exception?.message.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
 
                 Color.parseColor("#FF001E")
 
