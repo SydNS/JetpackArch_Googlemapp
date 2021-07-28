@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                    onStop()
                 }
                 return
             }
@@ -57,4 +58,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+// prompting user to turn on the location gps
+
+
+
 }
