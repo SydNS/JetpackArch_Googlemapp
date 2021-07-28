@@ -156,6 +156,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             Toast.makeText(requireActivity(), "${mAuth?.currentUser?.email}", Toast.LENGTH_LONG)
                 .show()
 
+
             if (requestType) {
                 requestType = false
                 geoQuery!!.removeAllListeners()
@@ -423,7 +424,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     override fun onConnectionSuspended(i: Int) {}
     override fun onConnectionFailed(connectionResult: ConnectionResult) {}
     override fun onLocationChanged(location: Location) {
-        onStart()
+//        onStart()
         //getting the updated location
         LastLocation = location
         val latLng = LatLng(location.latitude, location.longitude)
@@ -528,9 +529,10 @@ class Home_map : Fragment(), OnMapReadyCallback,
                         "${mAuth?.currentUser?.email} the app requires Location to  be enable",
                         Toast.LENGTH_LONG
                     ).show()
+//                    request_button.isEnabled=false
 
 
-                    activity?.finish()
+                    requireActivity().finish()
 
                 }
             }

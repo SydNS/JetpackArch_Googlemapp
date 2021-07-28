@@ -12,8 +12,6 @@
     <string name="next">next</string>
     <string name="welcome">Welcome</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="customer_phone_number">Customer Phone Number</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer">Customer</string>
     <string name="customerv_phone_number">Customerv Phone Number</string>
@@ -34,15 +32,8 @@
     <string name="matchingpasswordsneeded">You\'re required to Have Matching Passwords</string>
     <string name="matchingpassword2">Please Kindly Enter Your Matching Passwords</string>
     <string name="thanks">Thank you</string>
-    <string name="user">User</string>
     <string name="clients">Clients</string>
     <string name="users">Users</string>
-    <string name="loginfillinpassword">You\'re required to fill your Pasword</string>
-    <string name="loginenterpassword">Please Kindly Enter Your Email</string>
-    <string name="loginfillinemail">You\'re required to fill your Email</string>
-    <string name="loginfillinemail2">Please Kindly Enter Your Email</string>
-    <string name="loginthankyou">Thank you</string>
-    <string name="loginallfields">You\'re required to fill all the fields</string>
     <string name="roles_deliverer">Deliverer</string>
     <string name="roles_client">Client</string>
     <string name="radiobtnusertype">Choose User Type</string>

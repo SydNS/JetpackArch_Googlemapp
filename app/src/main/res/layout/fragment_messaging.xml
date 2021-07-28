@@ -13,7 +13,6 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/messagetoolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -22,7 +21,6 @@
             app:title="Moyo Messages" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/messagestabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
@@ -31,7 +29,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/messageviewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/messageappbar"
