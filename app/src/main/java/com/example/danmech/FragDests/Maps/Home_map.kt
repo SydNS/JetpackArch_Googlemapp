@@ -4,17 +4,21 @@ package com.example.danmech.FragDests.Maps
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.danmech.R
@@ -24,10 +28,10 @@ import com.firebase.geofire.GeoLocation
 import com.firebase.geofire.GeoQuery
 import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationListener
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -36,6 +40,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -98,13 +103,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //        }
 //        Toast.makeText(requireActivity(),"Kindly Sign In",Toast.LENGTH_LONG).show()
 
-        }else{
+        } else {
             onStart()
         }
 
 
     }
-
 
 
     override fun onCreateView(
@@ -145,10 +149,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
         request_button.setOnClickListener {
 
+
 //            disable the button aftter clicking it
-            it.isEnabled=false
+            it.isEnabled = false
 //            toasting the current user email to show that really a user is active
-            Toast.makeText(requireActivity(),"${mAuth?.currentUser?.email}",Toast.LENGTH_LONG).show()
+            Toast.makeText(requireActivity(), "${mAuth?.currentUser?.email}", Toast.LENGTH_LONG)
+                .show()
 
             if (requestType) {
                 requestType = false
@@ -193,6 +199,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
             }
 
         }
+
+
         logout_customer_btn.setOnClickListener {
             logout()
 
@@ -242,12 +250,14 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //         Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth?.currentUser
 
-        Toast.makeText(requireActivity(),"${currentUser?.email}",Toast.LENGTH_LONG).show()
-        if(currentUser == null){
+//        Toast.makeText(requireActivity(),"${currentUser?.email}",Toast.LENGTH_LONG).show()
+        if (currentUser == null) {
 
-            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
+            NavHostFragment.findNavController(requireParentFragment())
+                .navigate(R.id.action_home_map_to_authFragment)
         }
     }
+
     private val closestDeliverer: Unit
         get() {
             val geoFire = GeoFire(delivererAvailableRef)
@@ -378,7 +388,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            return
+            return showLocationPrompt()
         }
         buildGoogleApiClient()
         mMap!!.isMyLocationEnabled = true
@@ -399,7 +409,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             //
-            return
+            return showLocationPrompt()
         }
         //it will handle the refreshment of the location
         //if we dont call it we will get location only once
@@ -436,7 +446,9 @@ class Home_map : Fragment(), OnMapReadyCallback,
     private val assignedDriverInformation: Unit
         get() {
             val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
-                .child(getString(R.string.Users_node_in_raltimedb)).child(getString(R.string.deliverers_under_Users_node_in_raltimedb)).child((delivererFoundID)!!)
+                .child(getString(R.string.Users_node_in_raltimedb))
+                .child(getString(R.string.deliverers_under_Users_node_in_raltimedb))
+                .child((delivererFoundID)!!)
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
@@ -456,6 +468,75 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
         }
+
+
+//    getting the user to turn on the
+
+    private fun showLocationPrompt() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+
+        val result: Task<LocationSettingsResponse> =
+            LocationServices.getSettingsClient(activity).checkLocationSettings(builder.build())
+
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(ApiException::class.java)
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
+                        try {
+                            // Cast to a resolvable exception.
+                            val resolvable: ResolvableApiException =
+                                exception as ResolvableApiException
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(
+                                activity, LocationRequest.PRIORITY_HIGH_ACCURACY
+                            )
+                        } catch (e: IntentSender.SendIntentException) {
+                            // Ignore the error.
+                        } catch (e: ClassCastException) {
+                            // Ignore, should be an impossible error.
+                        }
+                    }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                        // Location settings are not satisfied. But could be fixed by showing the
+                        // user a dialog.
+
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            LocationRequest.PRIORITY_HIGH_ACCURACY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.e("Status: ", "On")
+                } else {
+                    Log.e("Status: ", "Off")
+                    Toast.makeText(
+                        requireActivity(),
+                        "${mAuth?.currentUser?.email} the app requires Location to  be enable",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+
+                    activity?.finish()
+
+                }
+            }
+        }
+    }
+
 }
 
 
