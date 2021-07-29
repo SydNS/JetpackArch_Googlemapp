@@ -55,6 +55,13 @@ class Home_map : Fragment(), OnMapReadyCallback,
     lateinit var logout_customer_btn: Button
     private lateinit var details: Button
     lateinit var request_button: Button
+    lateinit var simpleZoomControl: ZoomControls
+
+    private var txtName: TextView? = null
+    private var txtPhone: TextView? = null
+    private var txtCarName: TextView? = null
+    private var profilePic: CircleImageView? = null
+    private var relativeLayout: RelativeLayout? = null
     private lateinit var moyosharedprefs: Moyosharedprefs
 
 
@@ -82,11 +89,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
     var PickUpMarker: Marker? = null
     var geoQuery: GeoQuery? = null
     private var DriverLocationRefListner: ValueEventListener? = null
-    private var txtName: TextView? = null
-    private var txtPhone: TextView? = null
-    private var txtCarName: TextView? = null
-    private var profilePic: CircleImageView? = null
-    private var relativeLayout: RelativeLayout? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,14 +96,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
         mAuth = FirebaseAuth.getInstance()
         mAuth?.currentUser
+
+//        checking if a user is an old one or not
         if (!isUserOld()) {
             NavHostFragment
                 .findNavController(this)
                 .navigate(R.id.action_home_map_to_walkThrough)
-//        }else if(currentUser == null){
-//            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_home_map_to_authFragment)
-//        }
-//        Toast.makeText(requireActivity(),"Kindly Sign In",Toast.LENGTH_LONG).show()
 
         } else {
             onStart()
@@ -140,12 +140,21 @@ class Home_map : Fragment(), OnMapReadyCallback,
         profilePic = v.findViewById(R.id.profile_image_driver)
         relativeLayout = v.findViewById(R.id.rel1)
         callingbtn = v.findViewById(R.id.callingbtn)
+        simpleZoomControl = v.findViewById(R.id.simpleZoomControl)
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+//        mMap?.getUiSettings()?.isZoomControlsEnabled = true;
+
+        simpleZoomControl.setOnZoomInClickListener {
+            mMap?.animateCamera(CameraUpdateFactory.zoomIn())
+        }
+        simpleZoomControl.setOnZoomOutClickListener {
+            mMap?.animateCamera(CameraUpdateFactory.zoomOut())
+        }
 
         request_button.setOnClickListener {
 
@@ -250,7 +259,6 @@ class Home_map : Fragment(), OnMapReadyCallback,
         super.onStart()
 //         Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth?.currentUser
-
 //        Toast.makeText(requireActivity(),"${currentUser?.email}",Toast.LENGTH_LONG).show()
         if (currentUser == null) {
 
@@ -371,10 +379,9 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //    }
 
     private fun logout() {
-
         mAuth?.signOut()
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_home_map_to_authFragment)
+        activity?.finish()
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -429,7 +436,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
         LastLocation = location
         val latLng = LatLng(location.latitude, location.longitude)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
     }
 
     //create this method -- for useing apis
