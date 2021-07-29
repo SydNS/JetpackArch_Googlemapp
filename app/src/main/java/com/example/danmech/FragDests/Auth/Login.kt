@@ -133,11 +133,12 @@ class Login : Fragment() {
     ) {
         auth.signInWithEmailAndPassword(uemail, upassd).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(requireActivity(), "${auth.currentUser?.email}", Toast.LENGTH_LONG)
-                    .show()
 
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_authFragment_to_home_map)
+                Toast.makeText(requireActivity(), "${auth.currentUser?.email}", Toast.LENGTH_LONG)
+                .show()
+
             } else {
                 loginbanner.text = it.exception?.message.toString()
                 Toast.makeText(
