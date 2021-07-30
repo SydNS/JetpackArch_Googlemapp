@@ -62,6 +62,7 @@
 
     <string name="dont_have_an_account">Don\'t have an Account?</string>
     <string name="register">Register</string>
+    <string name="user_name">Username</string>
 
 
 </resources>
