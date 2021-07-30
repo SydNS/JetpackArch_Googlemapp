@@ -176,8 +176,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:clipToPadding="false"
-        app:menu="@menu/drawermenu"
-        />
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawermenu">
+
+        <include
+            android:id="@+id/drawerprof"
+            layout="@layout/profile" />
+    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
