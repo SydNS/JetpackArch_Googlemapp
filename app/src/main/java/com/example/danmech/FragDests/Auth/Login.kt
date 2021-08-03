@@ -139,7 +139,7 @@ class Login : Fragment() {
                 if (WhatTypeOfUser() == "Deliverer") {
                     NavHostFragment
                         .findNavController(this)
-                        .navigate(R.id.action_home_map_to_usertypeselection)
+                        .navigate(R.id.action_authFragment_to_deliverersmap)
 
                 } else {
                     NavHostFragment.findNavController(this)
