@@ -3,6 +3,7 @@
 package com.example.danmech.FragDests.Auth
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -134,11 +135,18 @@ class Login : Fragment() {
         auth.signInWithEmailAndPassword(uemail, upassd).addOnCompleteListener {
             if (it.isSuccessful) {
 
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_authFragment_to_home_map)
-                Toast.makeText(requireActivity(), "${auth.currentUser?.email}", Toast.LENGTH_LONG)
-                .show()
 
+                if (WhatTypeOfUser() == "Deliverer") {
+                    NavHostFragment
+                        .findNavController(this)
+                        .navigate(R.id.action_home_map_to_usertypeselection)
+
+                } else {
+                    NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_authFragment_to_home_map)
+                }
+                Toast.makeText(requireActivity(), "${auth.currentUser?.email}", Toast.LENGTH_LONG)
+                    .show()
             } else {
                 loginbanner.text = it.exception?.message.toString()
                 Toast.makeText(
@@ -154,5 +162,12 @@ class Login : Fragment() {
         }
     }
 
+
+    private fun WhatTypeOfUser(): String? {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+        val isOld = sharedPreferences.getString("Type", null)
+        return isOld
+    }
 
 }
