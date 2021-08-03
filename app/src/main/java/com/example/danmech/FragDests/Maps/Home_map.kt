@@ -17,10 +17,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.appcompat.widget.Toolbar
 import com.example.danmech.R
 import com.example.danmech.Sharedprefs.Moyosharedprefs
 import com.firebase.geofire.GeoFire
@@ -55,6 +59,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
     lateinit var logout_customer_btn: Button
     private lateinit var details: Button
     lateinit var request_button: Button
+    lateinit var toolbar: Toolbar
+    lateinit var mActionBar: ActionBar
     lateinit var simpleZoomControl: ZoomControls
 
     private var txtName: TextView? = null
@@ -80,7 +86,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
     private var delivererAvailableRef: DatabaseReference? = null
     private var DriverLocationRef: DatabaseReference? = null
     private var DeliverersRef: DatabaseReference? = null
-    private var radius: Int = 1
+    private var radius: Int = 2
     private var delivererFound: Boolean? = false
     private var requestType: Boolean = false
     private var delivererFoundID: String? = null
@@ -103,6 +109,15 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 .findNavController(this)
                 .navigate(R.id.action_home_map_to_walkThrough)
 
+        }else if (WhatTypeOfUser()=="Deliverer") {
+            NavHostFragment
+                .findNavController(this)
+                .navigate(R.id.action_home_map_to_deliverersmap)
+
+        } else if (WhatTypeOfUser() == "Client") {
+            onStart()
+
+
         } else {
             onStart()
         }
@@ -115,8 +130,12 @@ class Home_map : Fragment(), OnMapReadyCallback,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val v: View = inflater.inflate(R.layout.fragment_home_map, container, false)
+
+//        toolbar = v.findViewById(R.id.toolbar);
+//        (activity as AppCompatActivity?)!!.supportActionBar=toolbar
+//        mActionBar = (activity as AppCompatActivity?)!!.supportActionBar!!
 
 
 //        initialising variable on the creation of the frag
@@ -131,7 +150,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 //      initializing a share pref to use when checking if the user id old or not
         moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
-        logout_customer_btn = v.findViewById(R.id.logout_customer_btn)
+        logout_customer_btn = v.findViewById(R.id.logout_c_btn)
         details = v.findViewById(R.id.details)
         request_button = v.findViewById(R.id.request_button)
         txtName = v.findViewById(R.id.name_driver)
@@ -141,6 +160,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
         relativeLayout = v.findViewById(R.id.rel1)
         callingbtn = v.findViewById(R.id.callingbtn)
         simpleZoomControl = v.findViewById(R.id.simpleZoomControl)
+        drawer_layout = v.findViewById(R.id.drawer_layout)
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -178,7 +198,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
                     delivererFoundID = null
                 }
                 delivererFound = false
-                radius = 1
+                radius = 2
                 val customerId: String? = FirebaseAuth.getInstance().currentUser?.uid
                 val geoFire = GeoFire(CustomerDatabaseRef)
                 geoFire.removeLocation(customerId)
@@ -220,34 +240,37 @@ class Home_map : Fragment(), OnMapReadyCallback,
             startActivity(intent)
         }
         details.setOnClickListener {
+
+
+            openCloseNavigationDrawer(v)
             // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(requireActivity())
-
-            // on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
-
-            // on below line we are creating a variable for our button
-            // which we are using to dismiss our dialog.
-            val btnClose = view.findViewById<ImageView>(R.id.close_button)
-
-            // on below line we are adding on click listener
-            // for our dismissing the dialog button.
-            btnClose.setOnClickListener {
-                // on below line we are calling a dismiss
-                // method to close our dialog.
-                dialog.dismiss()
-            }
-            // below line is use to set cancelable to avoid
-            // closing of dialog box when clicking on the screen.
-            dialog.setCancelable(true)
-
-            // on below line we are setting
-            // content view to our view.
-            dialog.setContentView(view)
-
-            // on below line we are calling
-            // a show method to display a dialog.
-            dialog.show()
+//            val dialog = BottomSheetDialog(requireActivity())
+//
+////            // on below line we are inflating a layout file which we have created.
+////            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+////
+////            // on below line we are creating a variable for our button
+////            // which we are using to dismiss our dialog.
+////            val btnClose = view.findViewById<ImageView>(R.id.close_button)
+////
+////            // on below line we are adding on click listener
+////            // for our dismissing the dialog button.
+////            btnClose.setOnClickListener {
+////                // on below line we are calling a dismiss
+////                // method to close our dialog.
+////                dialog.dismiss()
+////            }
+////            // below line is use to set cancelable to avoid
+////            // closing of dialog box when clicking on the screen.
+////            dialog.setCancelable(true)
+////
+////            // on below line we are setting
+////            // content view to our view.
+////            dialog.setContentView(view)
+////
+////            // on below line we are calling
+////            // a show method to display a dialog.
+////            dialog.show()
 
 
         }
@@ -323,6 +346,13 @@ class Home_map : Fragment(), OnMapReadyCallback,
         return sharedPreferences.getBoolean("Old", false)
     }
 
+
+    private fun WhatTypeOfUser(): String? {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+        val isOld = sharedPreferences.getString("Type", null)
+        return isOld
+    }
 
     //and then we get to the driver location - to tell customer where is the driver
     private fun GettingDriverLocation() {
@@ -543,6 +573,17 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
                 }
             }
+        }
+    }
+
+
+    //    openning and closing the drawer
+    lateinit var drawer_layout:DrawerLayout
+    fun openCloseNavigationDrawer(view: View) {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            drawer_layout.openDrawer(GravityCompat.START)
         }
     }
 
