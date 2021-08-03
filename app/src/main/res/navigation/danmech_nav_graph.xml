@@ -73,15 +73,11 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_home_map_to_usertypeselection"
-            app:destination="@id/deliverersmap"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_home_map_to_messagingFragment"
             app:destination="@id/messagingFragment" />
+        <action
+            android:id="@+id/action_home_map_to_deliverersmap"
+            app:destination="@id/deliverersmap" />
     </fragment>
     <fragment
         android:id="@+id/deliverersmap"
