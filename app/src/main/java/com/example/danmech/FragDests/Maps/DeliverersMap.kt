@@ -51,7 +51,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DeliverersMap : Fragment(), OnMapReadyCallback,
-GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+    GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
 
     private var mMap: GoogleMap? = null
@@ -60,8 +60,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     var locationRequest: LocationRequest? = null
     private var LogoutDriverBtn: Button? = null
     private var SettingsDriverButton: Button? = null
-
-    //    private lateinit var callingbtn: Button
+    private lateinit var callingbtn: Button
     private var mAuth: FirebaseAuth? = null
     private var currentUser: FirebaseUser? = null
     private var currentLogOutUserStatus: Boolean = false
@@ -90,6 +89,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        onStart()
     }
 
     override fun onCreateView(
@@ -97,14 +97,14 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v:View= inflater.inflate(R.layout.fragment_deliverers_map, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_deliverers_map, container, false)
         mAuth = FirebaseAuth.getInstance()
         currentUser = mAuth!!.currentUser
         delivererID = mAuth!!.currentUser?.uid
         LogoutDriverBtn = v.findViewById<View>(R.id.logout_driv_btn) as Button?
         SettingsDriverButton = v.findViewById<View>(R.id.settings_driver_btn) as Button?
 
-        val callingbtn: Button = v.findViewById(R.id.callingbtn)
+        callingbtn = v.findViewById(R.id.callingbtn)
         txtName = v.findViewById(R.id.name_customer)
         txtPhone = v.findViewById(R.id.phone_customer)
         profilePic = v.findViewById(R.id.profile_image_customer)
@@ -129,7 +129,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
 
         }
 
-        assignedCustomersRequest
+//        assignedCustomersRequest
         return v
     }
 
@@ -137,7 +137,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     private val assignedCustomersRequest: Unit
         get() {
             AssignedCustomerRef = FirebaseDatabase.getInstance().reference.child("Users")
-                .child("Deliverers").child((delivererID)!!).child("CustomerRideID")
+                .child("Deliverers").child((delivererID)!!).child("CustomerID")
             AssignedCustomerRef!!.addValueEventListener(object : ValueEventListener {
 
 
@@ -217,43 +217,50 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     }
 
 
-     override fun onLocationChanged(location: Location) {
-         //getting the updated location
-         LastLocation = location
-         val latLng: LatLng = LatLng(location.latitude, location.longitude)
-         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
-         val userID: String?= FirebaseAuth.getInstance().currentUser?.uid 
-         val WaterTruckAvailabilityRef: DatabaseReference =
-             FirebaseDatabase.getInstance().reference.child("Deliverers Available")
-         val geoFireAvailability: GeoFire = GeoFire(WaterTruckAvailabilityRef)
-         val DeliverersWorkingRef: DatabaseReference =
-             FirebaseDatabase.getInstance().reference.child("Deliverers Working")
-         val geoFireWorking: GeoFire = GeoFire(DeliverersWorkingRef)
-         when (customerID) {
-             "" -> {
-                 geoFireWorking.removeLocation(userID)
-                 geoFireAvailability.setLocation(
-                     userID,
-                     GeoLocation(location.latitude, location.longitude)
-                 )
-             }
-             else -> {
-                 geoFireAvailability.removeLocation(userID)
-                 geoFireWorking.setLocation(
-                     userID,
-                     GeoLocation(location.latitude, location.longitude)
-                 )
-             }
-         }
-     }
+    override fun onLocationChanged(location: Location) {
+        //getting the updated location
+        LastLocation = location
+        val latLng: LatLng = LatLng(location.latitude, location.longitude)
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+
+        val userID: String? = FirebaseAuth.getInstance().currentUser?.uid
+
+        val WaterTruckAvailabilityRef: DatabaseReference =
+            FirebaseDatabase.getInstance().reference.child("Deliverers Available")
+        val geoFireAvailability: GeoFire = GeoFire(WaterTruckAvailabilityRef)
+
+        val DeliverersWorkingRef: DatabaseReference =
+            FirebaseDatabase.getInstance().reference.child("Deliverers Working")
+        val geoFireWorking: GeoFire = GeoFire(DeliverersWorkingRef)
+
+        when (customerID) {
+            "" -> {
+                geoFireWorking.removeLocation(currentUser?.uid)
+                geoFireAvailability.setLocation(
+                    currentUser?.uid,
+                    GeoLocation(location.latitude, location.longitude)
+                )
+            }
+            else -> {
+                geoFireAvailability.removeLocation(userID)
+                geoFireWorking.setLocation(
+                    userID,
+                    GeoLocation(location.latitude, location.longitude)
+                )
+            }
+        }
+    }
 
     override fun onConnected(bundle: Bundle?) {
         locationRequest = LocationRequest()
         locationRequest!!.interval = 1000
         locationRequest!!.fastestInterval = 1000
         locationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -293,7 +300,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     }
 
     private fun DisconnectDriver() {
-        val userID: String? = FirebaseAuth.getInstance().currentUser?.uid 
+        val userID: String? = FirebaseAuth.getInstance().currentUser?.uid
         val WaterTruckAvailabilityRef: DatabaseReference =
             FirebaseDatabase.getInstance().reference.child("Deliverers Available")
         val geoFire: GeoFire = GeoFire(WaterTruckAvailabilityRef)
@@ -301,8 +308,7 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     }
 
     fun LogOutUser() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_home_map_to_authFragment)
+        activity?.finish()
     }
 
     private val assignedCustomerInformation: Unit
@@ -310,10 +316,10 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
             val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
                 .child("Users").child("Customers").child(customerID)
             reference.addValueEventListener(object : ValueEventListener {
-                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
                         val name: String = dataSnapshot.child("name").value.toString()
-                         phone = dataSnapshot.child("phone").value.toString()
+                        phone = dataSnapshot.child("phone").value.toString()
                         txtName!!.text = name
                         txtPhone!!.text = phone
                         if (dataSnapshot.hasChild("image")) {
@@ -327,5 +333,17 @@ GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
             })
         }
 
+
+    override fun onStart() {
+        super.onStart()
+//         Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth?.currentUser
+//        Toast.makeText(requireActivity(),"${currentUser?.email}",Toast.LENGTH_LONG).show()
+        if (currentUser == null) {
+
+            NavHostFragment.findNavController(requireParentFragment())
+                .navigate(R.id.authFragment)
+        }
+    }
 
 }
