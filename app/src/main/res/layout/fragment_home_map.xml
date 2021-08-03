@@ -2,9 +2,12 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragDests.Maps.Home_map">
+    android:fitsSystemWindows="true"
+    tools:context=".FragDests.Maps.Home_map"
+    tools:openDrawer="start">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -178,13 +181,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:clipToPadding="false"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawermenu">
+        android:clipToPadding="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/light_blue_600">
 
             <RelativeLayout
                 android:id="@+id/rellay1"
