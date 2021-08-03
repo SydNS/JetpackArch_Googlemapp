@@ -50,6 +50,7 @@ class SignUp : Fragment() {
     private lateinit var firebaseAuthListner: FirebaseAuth.AuthStateListener
     private lateinit var firebasedatabase: FirebaseDatabase
     private lateinit var customersDatabaseRef: DatabaseReference
+    private lateinit var deliverersDatabaseRef: DatabaseReference
     private lateinit var loadingBar: ProgressDialog
     private lateinit var currentUser: FirebaseUser
     private lateinit var currentUserId: String
@@ -195,7 +196,7 @@ class SignUp : Fragment() {
                 }
             }
 
-//            these wonte be necessary becoz we are sendind the user directly to the home page skipping the
+//            these wonte be necessary becoz we are sending the user directly to the home page skipping the
 //            and combining the signup and login
 //            layoutwithtabs = activity?.findViewById(R.id.fragment_auth)!!
 //            tabs = layoutwithtabs.findViewById(R.id.tabs)
@@ -228,10 +229,30 @@ class SignUp : Fragment() {
                 val user = auth.currentUser
 
                 currentUserId = user?.uid.toString()
-                customersDatabaseRef = firebasedatabase.reference
-                    .child(getString(R.string.users)).child(getString(R.string.clients))
-                    .child(currentUserId)
-                customersDatabaseRef.setValue(true)
+                if (appuser=="Client"){
+                    customersDatabaseRef = firebasedatabase.reference
+                        .child(getString(R.string.users)).child(getString(R.string.clients))
+                        .child(currentUserId)
+                    customersDatabaseRef.setValue(true)
+
+                    loadingBar.dismiss()
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_authFragment_to_home_map)
+                }else{
+
+                    deliverersDatabaseRef =
+                        FirebaseDatabase.getInstance().reference.child(getString(R.string.users))
+                            .child(getString(R.string.deliverers)).child(
+                                currentUserId
+                            )
+                    deliverersDatabaseRef.setValue(true)
+
+                    loadingBar.dismiss()
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_authFragment_to_deliverersmap)
+
+                }
+
 
                 Toast.makeText(
                     activity,
@@ -239,11 +260,8 @@ class SignUp : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                loadingBar.dismiss()
 
 
-                Navigation.findNavController(view)
-                    .navigate(R.id.action_authFragment_to_home_map)
             } else {
                 // If sign in fails, display a message to the user.
                 //                Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -263,26 +281,12 @@ class SignUp : Fragment() {
     private fun storeDecidedUser(usertype: String) {
 
         val sharedPreferences =
-            requireActivity().getSharedPreferences("UserType", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("Type", usertype)
         editor.apply()
 
     }
-
-
-//        override fun onStart() {
-//            super.onStart()
-//            // Check if user is signed in (non-null) and update UI accordingly.
-//            val currentUser = auth?.currentUser
-//            firebaseAuthListner?.let { auth?.addAuthStateListener(it) }
-//
-//        }
-//
-//        override fun onStop() {
-//            super.onStop()
-//            firebaseAuthListner?.let { auth?.removeAuthStateListener(it) }
-//        }
 
 
 }
