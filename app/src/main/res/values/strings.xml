@@ -33,6 +33,7 @@
     <string name="matchingpassword2">Please Kindly Enter Your Matching Passwords</string>
     <string name="thanks">Thank you</string>
     <string name="clients">Clients</string>
+    <string name="deliverers">Deliverers</string>
     <string name="users">Users</string>
     <string name="roles_deliverer">Deliverer</string>
     <string name="roles_client">Client</string>
