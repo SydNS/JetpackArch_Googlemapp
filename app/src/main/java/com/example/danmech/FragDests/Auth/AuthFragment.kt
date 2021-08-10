@@ -66,10 +66,10 @@ class AuthFragment : Fragment() {
         // Inflate the layout for this fragment
         val v: View=inflater.inflate(R.layout.fragment_auth, container, false)
 
-        appbarauth=v.findViewById<AppBarLayout>(R.id.appbarauth)
-        toolbar=v.findViewById<Toolbar>(R.id.toolbar)
-        tabs=v.findViewById<TabLayout>(R.id.tabs)
-        vp=v.findViewById<ViewPager>(R.id.vpauth)
+        appbarauth=v.findViewById(R.id.appbarauth)
+        toolbar=v.findViewById(R.id.toolbar)
+        tabs=v.findViewById(R.id.tabs)
+        vp=v.findViewById(R.id.vpauth)
 
 //        adapter for attahing the tab with the viewpager that wll swipe thru the frags
         tablayoutAdapter=TablayoutAdapter(ctx,parentFragmentManager)

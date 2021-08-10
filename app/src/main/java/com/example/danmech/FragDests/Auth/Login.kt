@@ -135,7 +135,6 @@ class Login : Fragment() {
         auth.signInWithEmailAndPassword(uemail, upassd).addOnCompleteListener {
             if (it.isSuccessful) {
 
-
                 if (WhatTypeOfUser() == "Deliverer") {
                     NavHostFragment
                         .findNavController(this)
@@ -165,7 +164,7 @@ class Login : Fragment() {
 
     private fun WhatTypeOfUser(): String? {
         val sharedPreferences =
-            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("OldUserType", Context.MODE_PRIVATE)
         val isOld = sharedPreferences.getString("Type", null)
         return isOld
     }

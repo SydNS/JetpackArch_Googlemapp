@@ -35,7 +35,7 @@ class SignUp : Fragment() {
     lateinit var username: TextInputLayout
     lateinit var useremailaddress: TextInputLayout
     lateinit var userpassword: TextInputLayout
-    lateinit var userpassword2: TextInputLayout
+    private lateinit var userpassword2: TextInputLayout
     lateinit var userphone: TextInputLayout
 
     //declaring the radio views for grabbing the decision from usrs
@@ -281,7 +281,7 @@ class SignUp : Fragment() {
     private fun storeDecidedUser(usertype: String) {
 
         val sharedPreferences =
-            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("OldUserType", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("Type", usertype)
         editor.apply()

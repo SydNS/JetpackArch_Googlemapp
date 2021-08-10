@@ -341,7 +341,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     private fun isUserOld(): Boolean {
         val sharedPreferences =
-            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("OldUser", Context.MODE_PRIVATE)
 
         return sharedPreferences.getBoolean("Old", false)
     }
@@ -349,7 +349,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     private fun WhatTypeOfUser(): String? {
         val sharedPreferences =
-            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("OldUserType", Context.MODE_PRIVATE)
         val isOld = sharedPreferences.getString("Type", null)
         return isOld
     }

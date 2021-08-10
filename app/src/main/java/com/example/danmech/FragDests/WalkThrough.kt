@@ -165,7 +165,7 @@ class WalkThrough : Fragment() {
 
     fun MakeOld() {
         val sharedPreferences =
-            requireActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("OldUser", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putBoolean("Old", true)
         editor.apply()
