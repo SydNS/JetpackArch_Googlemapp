@@ -131,7 +131,7 @@ class DeliverersMap : Fragment(), OnMapReadyCallback,
 
         }
 
-//        assignedCustomersRequest
+        assignedCustomersRequest
         return v
     }
 
@@ -316,7 +316,7 @@ class DeliverersMap : Fragment(), OnMapReadyCallback,
     private val assignedCustomerInformation: Unit
         get() {
             val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
-                .child("Users").child("Customers").child(customerID)
+                .child("Users").child("Account_info").child(customerID)
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
