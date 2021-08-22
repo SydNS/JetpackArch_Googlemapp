@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/bottomsheet_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_deliverers_map.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_home_map.xml" value="0.25" />
         <entry key="app/src/main/res/layout/login.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.196875" />
