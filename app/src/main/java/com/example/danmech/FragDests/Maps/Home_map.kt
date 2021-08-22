@@ -5,6 +5,8 @@ package com.example.danmech.FragDests.Maps
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
@@ -12,6 +14,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentActivity
 import com.example.danmech.R
 import com.example.danmech.Sharedprefs.Moyosharedprefs
 import com.firebase.geofire.GeoFire
@@ -49,7 +53,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -57,7 +64,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
     lateinit var logout_customer_btn: Button
-    private lateinit var details: Button
+    lateinit var accountbtn: ImageButton
+    private lateinit var details: ImageButton
     lateinit var request_button: Button
     lateinit var toolbar: Toolbar
     lateinit var mActionBar: ActionBar
@@ -95,6 +103,26 @@ class Home_map : Fragment(), OnMapReadyCallback,
     var PickUpMarker: Marker? = null
     var geoQuery: GeoQuery? = null
     private var DriverLocationRefListner: ValueEventListener? = null
+
+
+    //    bottomsheet
+
+    lateinit var btnClose: ImageView
+    lateinit var uname: TextView
+    lateinit var phone_number: TextView
+    lateinit var save_button: ImageView
+    lateinit var close_button: ImageView
+    lateinit var profileImageView: ImageView
+    lateinit var change_picture_btn: TextView
+
+
+    private var profileChangeBtn: TextView? = null
+    private var databaseReference: DatabaseReference? = null
+    private var checker = ""
+    private var imageUri: Uri? = null
+    private var myUrl = ""
+    private var uploadTask: UploadTask? = null
+    private var storageProfilePicsRef: StorageReference? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -151,6 +179,8 @@ class Home_map : Fragment(), OnMapReadyCallback,
 //      initializing a share pref to use when checking if the user id old or not
         moyosharedprefs = Moyosharedprefs(requireActivity().applicationContext)
         logout_customer_btn = v.findViewById(R.id.logout_c_btn)
+        details = v.findViewById(R.id.details)
+        accountbtn = v.findViewById(R.id.accountbtn)
         details = v.findViewById(R.id.details)
         request_button = v.findViewById(R.id.request_button)
         txtName = v.findViewById(R.id.name_driver)
@@ -239,41 +269,69 @@ class Home_map : Fragment(), OnMapReadyCallback,
             val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:0701315149"))
             startActivity(intent)
         }
-        details.setOnClickListener {
+        accountbtn.setOnClickListener {openCloseNavigationDrawer(v)}
 
 
-            openCloseNavigationDrawer(v)
+
+        details!!.setOnClickListener {
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            intent.putExtra("type", "Customers")
+//            startActivity(intent)
+
             // on below line we are creating a new bottom sheet dialog.
-//            val dialog = BottomSheetDialog(requireActivity())
+            val dialog = BottomSheetDialog(requireActivity())
 //
 ////            // on below line we are inflating a layout file which we have created.
-////            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+            val view = layoutInflater.inflate(R.layout.bottomsheet_dialog, null)
 ////
 ////            // on below line we are creating a variable for our button
-////            // which we are using to dismiss our dialog.
-////            val btnClose = view.findViewById<ImageView>(R.id.close_button)
+//            // which we are using to dismiss our dialog.
+            btnClose = view.findViewById(R.id.close_button)
+            uname = view.findViewById(R.id.name)
+            phone_number = view.findViewById(R.id.phone_number)
+            save_button = view.findViewById(R.id.save_button)
+            close_button = view.findViewById(R.id.close_button)
+            profileImageView = view.findViewById(R.id.profile_image)
+            change_picture_btn = view.findViewById(R.id.change_picture_btn)
 ////
+            profileImageView.setOnClickListener {
+                checker = "clicked"
+                CropImage.activity()
+                    .start(requireActivity())
+            }
+            save_button.setOnClickListener {
+                if (checker == "clicked") {
+                    validateControllers()
+                    dialog.dismiss()
+
+                } else {
+                    validateAndSaveOnlyInformation()
+
+                }
+
+            }
+            userInformation
+
 ////            // on below line we are adding on click listener
 ////            // for our dismissing the dialog button.
-////            btnClose.setOnClickListener {
+            btnClose.setOnClickListener {
 ////                // on below line we are calling a dismiss
 ////                // method to close our dialog.
-////                dialog.dismiss()
-////            }
+                dialog.dismiss()
+            }
 ////            // below line is use to set cancelable to avoid
 ////            // closing of dialog box when clicking on the screen.
-////            dialog.setCancelable(true)
+            dialog.setCancelable(true)
 ////
 ////            // on below line we are setting
 ////            // content view to our view.
-////            dialog.setContentView(view)
+            dialog.setContentView(view)
 ////
 ////            // on below line we are calling
 ////            // a show method to display a dialog.
-////            dialog.show()
-
-
+            dialog.show()
         }
+
 
         return v
     }
@@ -321,7 +379,7 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
                         //Show driver location on customerMapActivity
                         GettingDriverLocation()
-                        CallDelivererButton!!.text = "Looking for a Water Truck Around.."
+                        Toast.makeText(activity,"Looking for a Water Truck Around..",Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -410,7 +468,9 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
     private fun logout() {
         mAuth?.signOut()
-        activity?.finish()
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_home_map_to_authFragment)
+
 
     }
 
@@ -574,7 +634,26 @@ class Home_map : Fragment(), OnMapReadyCallback,
                 }
             }
         }
+        if (requestCode != CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE || resultCode != Activity.RESULT_OK || data == null) {
+            NavHostFragment
+                .findNavController(this)
+                .navigate(R.id.home_map)
+
+
+            Toast.makeText(activity, "Error, Try Again.", Toast.LENGTH_SHORT).show()
+        } else {
+            val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
+            if (result != null) {
+                imageUri = result.uri
+            }
+            profileImageView.setImageURI(imageUri)
+        }
     }
+
+
+
+
+
 
 
     //    openning and closing the drawer
@@ -586,6 +665,119 @@ class Home_map : Fragment(), OnMapReadyCallback,
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
+
+
+
+
+    private fun validateControllers() {
+        if (TextUtils.isEmpty(uname.text.toString())) {
+            Toast.makeText(activity, "Please provide your name.", Toast.LENGTH_SHORT).show()
+        }
+        if (TextUtils.isEmpty(phone_number.text.toString())) {
+            Toast.makeText(activity, "Please provide your phone number.", Toast.LENGTH_SHORT).show()
+        }
+//        else {
+//            if (getType == "Mechanics" && TextUtils.isEmpty(driverCarName?.text.toString())) {
+//                Toast.makeText.(this, "Please provide your car Name.", Toast.LENGTH_SHORT).show()
+//            } else if (checker == "clicked") {
+        uploadProfilePicture()
+//            }
+//        }
+    }
+
+    private fun uploadProfilePicture() {
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setTitle("Saving Information")
+        progressDialog.setMessage("Please wait, while we are saving your account information")
+        progressDialog.show()
+        if (imageUri != null) {
+            val fileRef: StorageReference =
+                storageProfilePicsRef!!.child((mAuth?.currentUser?.uid ?: String()) + ".jpg")
+            uploadTask = fileRef.putFile(imageUri!!)
+            uploadTask!!.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                fileRef.downloadUrl
+            }.addOnCompleteListener { p0 ->
+                if (p0.isSuccessful) {
+                    val downloadUrl = p0.result
+                    myUrl = downloadUrl.toString()
+                    val userMap = java.util.HashMap<String, Any>()
+                    userMap["uid"] = mAuth?.currentUser!!.uid
+                    userMap["name"] = uname.text.toString()
+                    userMap["phone"] = phone_number.text.toString()
+                    userMap["image"] = myUrl
+//                    if (getType == "Mechanics") {
+//                        userMap["car"] = driverCarName?.text.toString()
+//                    }
+                    mAuth?.currentUser?.let {
+                        databaseReference?.child(it.uid)
+                            ?.updateChildren(userMap)
+                    }
+                    progressDialog.dismiss()
+
+                }
+            }
+        } else {
+            Toast.makeText(activity, "Image is not selected.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun validateAndSaveOnlyInformation() {
+        when {
+            TextUtils.isEmpty(uname?.text.toString()) -> {
+                Toast.makeText(activity, "Please provide your name.", Toast.LENGTH_SHORT).show()
+            }
+            TextUtils.isEmpty(phone_number.text.toString()) -> {
+                Toast.makeText(activity, "Please provide your phone number.", Toast.LENGTH_SHORT).show()
+                //        } else if (getType == "Mechanics" && TextUtils.isEmpty(driverCarName?.text.toString())) {
+                //            Toast.makeText(this, "Please provide your car Name.", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                val userMap = java.util.HashMap<String, Any>()
+                userMap["uid"] = mAuth?.currentUser!!.uid
+                userMap["name"] = uname?.text.toString()
+                userMap["phone"] = phone_number.text.toString()
+                //            if (getType == "Mechanics") {
+                //                userMap["car"] = driverCarName?.text.toString()
+                //            }
+                databaseReference?.child(mAuth?.currentUser!!.uid)?.updateChildren(userMap)
+
+            }
+        }
+    }
+
+    private val userInformation: Unit
+        get() {
+            mAuth?.currentUser?.let {
+                databaseReference?.child(it.uid)
+                    ?.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
+                                val name: String = dataSnapshot.child("name").value.toString()
+                                val phone: String = dataSnapshot.child("phone").value.toString()
+                                uname.text = name
+                                phone_number.text = phone
+//                                if (getType == "Drivers") {
+//                                    val car: String = dataSnapshot.child("car").value.toString()
+//                                    driverCarName?.setText(car)
+//                                }
+                                if (dataSnapshot.hasChild("image")) {
+                                    val image: String =
+                                        dataSnapshot.child("image").value.toString()
+                                    Picasso.get().load(image).into(profileImageView)
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {}
+                    })
+            }
+        }
 
 }
 
