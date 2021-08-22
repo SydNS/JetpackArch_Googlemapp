@@ -130,48 +130,30 @@
             android:textSize="23sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/logout_customer_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+        <ImageButton
+            android:id="@+id/accountbtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_margin="25dp"
-            android:background="@drawable/button_gradient"
-            android:drawable="@drawable/back"
-            android:drawableStart="@drawable/back"
-            android:drawableLeft="@drawable/back"
-            android:fontFamily="@font/caviardreams"
+            android:background="@android:color/transparent"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/logout"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:src="@drawable/accounticon"
             tools:ignore="RtlCompat" />
 
-        <Button
+        <ImageButton
             android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_gradient"
-            android:fontFamily="@font/caviardreams"
-            android:text="@string/details"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_margin="25dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/setting_icon"
+            android:visibility="visible" />
 
 
     </RelativeLayout>
@@ -206,12 +188,17 @@
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_margin="9dp"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="9dp"
+                        android:layout_marginRight="9dp"
+                        android:layout_marginBottom="9dp"
                         android:adjustViewBounds="true"
                         android:background="@drawable/circle"
                         android:padding="3dp"
                         android:scaleType="centerInside"
-                        android:src="@android:drawable/ic_menu_revert" />
+                        android:src="@mipmap/moyoappicon_foreground" />
 
                 </RelativeLayout>
 
@@ -223,7 +210,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15sp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Joey Tribbiani"
+                    android:text="Juma"
                     android:textColor="@color/white"
                     android:textSize="32sp" />
 
@@ -235,7 +222,7 @@
                     android:layout_below="@+id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="sans-serif"
-                    android:text="Juba,S.Sudan"
+                    android:text="Creator Juba,S.Sudan"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
@@ -276,10 +263,11 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/useremail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="joey@sharenofood.com"
+                        android:text="juma@gmail.com"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -305,6 +293,7 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/userphone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
@@ -329,7 +318,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Logout"
+                        android:text="Moyo H2O"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
 
