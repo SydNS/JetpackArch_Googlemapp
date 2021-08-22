@@ -64,6 +64,12 @@
     <string name="dont_have_an_account">Don\'t have an Account?</string>
     <string name="register">Register</string>
     <string name="user_name">Username</string>
+    <string name="profile">Profile</string>
+    <string name="take_picture_of_the_condition">attach a picture</string>
+    <string name="your_name">Name</string>
+    <string name="your_situation_details">Litres You may Need</string>
+    <string name="author">Moyo App</string>
+    <string name="cancel">cancel</string>
 
 
 </resources>
