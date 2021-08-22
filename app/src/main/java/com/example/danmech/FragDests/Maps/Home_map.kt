@@ -53,6 +53,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
@@ -168,6 +169,9 @@ class Home_map : Fragment(), OnMapReadyCallback,
 
 //        initialising variable on the creation of the frag
 //        mAuth = FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child("Account_info")
+        storageProfilePicsRef = FirebaseStorage.getInstance().reference.child("Profile Pictures")
+
         currentUser = mAuth!!.currentUser
         customerID = FirebaseAuth.getInstance().currentUser?.uid
         CustomerDatabaseRef =
