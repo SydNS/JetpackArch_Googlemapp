@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_blue_600"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:background="@color/light_blue_600"
+        android:layout_width="match_parent"
+        android:layout_height="456dp">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_gradient">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/close_button"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/cancel"
+                        android:src="@drawable/close"
+                        app:tint="@android:color/white" />
+
+                    <ImageView
+                        android:id="@+id/save_button"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/save_edited_info"
+                        app:tint="@android:color/white" />
+
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/app_bar_settings"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle"
+            android:contentDescription="TODO"
+            android:src="@drawable/camera_ic"
+            android:scaleType="center"
+            app:civ_border_color="#18759F"
+            app:civ_border_width="2dp" />
+
+
+        <TextView
+            android:id="@+id/change_picture_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/caviardreams"
+            android:text="@string/take_picture_of_the_condition"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_picture_btn"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/caviardreams"
+            android:hint="@string/your_name"
+            android:importantForAutofill="no"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff" />
+
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:maxLength="10"
+            android:fontFamily="@font/caviardreams"
+            android:hint="Your Phone Number"
+            android:inputType="number"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff" />
+
+
+        <EditText
+            android:id="@+id/problems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone_number"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="50dp"
+            android:autofillHints="todo"
+            android:fontFamily="@font/caviardreams"
+            android:hint="@string/your_situation_details"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/caviardreams"
+            android:gravity="center_horizontal"
+            android:text="@string/author"
+            android:textAlignment="center"
+            android:textColor="#ffff" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
